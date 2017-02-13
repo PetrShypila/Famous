@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B5DF7D21E520ED50092CCC1 /* StickerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5DF7D11E520ED50092CCC1 /* StickerPickerViewController.swift */; };
+		4B6FC9451E4D0E38008D304B /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FC9441E4D0E38008D304B /* EditImageViewController.swift */; };
 		4B95E66C1E4A6C830070EA1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */; };
-		4B95E66E1E4A6C830070EA1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95E66D1E4A6C830070EA1D /* ViewController.swift */; };
+		4B95E66E1E4A6C830070EA1D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95E66D1E4A6C830070EA1D /* CameraViewController.swift */; };
 		4B95E6711E4A6C830070EA1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B95E66F1E4A6C830070EA1D /* Main.storyboard */; };
 		4B95E6731E4A6C830070EA1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B95E6721E4A6C830070EA1D /* Assets.xcassets */; };
 		4B95E6761E4A6C830070EA1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B95E6741E4A6C830070EA1D /* LaunchScreen.storyboard */; };
+		4BF93E8C1E4B9436003C62F8 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93E8B1E4B9436003C62F8 /* PreviewView.swift */; };
+		4BF93E8E1E4B9492003C62F8 /* PhotoCaptureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93E8D1E4B9492003C62F8 /* PhotoCaptureDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B5DF7D11E520ED50092CCC1 /* StickerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerPickerViewController.swift; sourceTree = "<group>"; };
+		4B6FC9441E4D0E38008D304B /* EditImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		4B95E6681E4A6C830070EA1D /* Famous.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Famous.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4B95E66D1E4A6C830070EA1D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4B95E66D1E4A6C830070EA1D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4B95E6701E4A6C830070EA1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B95E6721E4A6C830070EA1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B95E6751E4A6C830070EA1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B95E6771E4A6C830070EA1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BF93E8B1E4B9436003C62F8 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		4BF93E8D1E4B9492003C62F8 /* PhotoCaptureDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCaptureDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +63,11 @@
 			isa = PBXGroup;
 			children = (
 				4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */,
-				4B95E66D1E4A6C830070EA1D /* ViewController.swift */,
+				4BF93E8B1E4B9436003C62F8 /* PreviewView.swift */,
+				4B95E66D1E4A6C830070EA1D /* CameraViewController.swift */,
+				4BF93E8D1E4B9492003C62F8 /* PhotoCaptureDelegate.swift */,
+				4B6FC9441E4D0E38008D304B /* EditImageViewController.swift */,
+				4B5DF7D11E520ED50092CCC1 /* StickerPickerViewController.swift */,
 				4B95E66F1E4A6C830070EA1D /* Main.storyboard */,
 				4B95E6721E4A6C830070EA1D /* Assets.xcassets */,
 				4B95E6741E4A6C830070EA1D /* LaunchScreen.storyboard */,
@@ -137,8 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B95E66E1E4A6C830070EA1D /* ViewController.swift in Sources */,
+				4B95E66E1E4A6C830070EA1D /* CameraViewController.swift in Sources */,
 				4B95E66C1E4A6C830070EA1D /* AppDelegate.swift in Sources */,
+				4B5DF7D21E520ED50092CCC1 /* StickerPickerViewController.swift in Sources */,
+				4B6FC9451E4D0E38008D304B /* EditImageViewController.swift in Sources */,
+				4BF93E8E1E4B9492003C62F8 /* PhotoCaptureDelegate.swift in Sources */,
+				4BF93E8C1E4B9436003C62F8 /* PreviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +316,7 @@
 				4B95E67C1E4A6C830070EA1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Famous/StickerPickerViewController.swift"
+            timestampString = "508699890.240238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "sendImageBackTo(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Famous.StickerPickerViewController.sendImageBackTo (__ObjC.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "Famous"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/petr/Development/Famous/Famous/StickerPickerViewController.swift"
+                  timestampString = "508700113.32223"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Famous.StickerPickerViewController.sendImageBackTo (__ObjC.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "Famous"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/petr/Development/Famous/Famous/StickerPickerViewController.swift"
+                  timestampString = "508700113.324575"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "236">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
