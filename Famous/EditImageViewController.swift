@@ -31,15 +31,30 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
             print("Photo not set")
         }
     }
-    
-    
+
+    @IBAction func saveImage(_ sender: Any) {
+//        let snapShot:UIView = photoScrollView.snapshotView(afterScreenUpdates: true)!
+//        UIGraphicsBeginImageContext(photoScrollView.bounds.size)
+//        snapShot.drawHierarchy(in: photoScrollView.bounds, afterScreenUpdates: true)
+//        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        //Create the UIImage
+        UIGraphicsBeginImageContext(photoScrollView.frame.size)
+        photoScrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        //Save it to the camera roll
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+    }
     
     @IBAction func goBack(_ sender: Any) {
         performSegueToReturnBack()
     }
     
     func add(sticker: UIImage) {
-        
         let newSticker = UIImageView(image: sticker)
         photoScrollView.addSubview(newSticker)
         addGestures(view: newSticker)

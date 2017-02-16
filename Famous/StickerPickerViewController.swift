@@ -8,20 +8,77 @@
 
 import UIKit
 
-class StickerPickerViewController: UIViewController {
+class StickerPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    private let ROW_HEIGHT = 100.0
+    private let STICKERS_BUNDLE = "stickers.bundle"
+    private let STICKERS_PER_ROW = 2
+    private var stickerViews: [UIImage]!
     
     weak var delegate: EditImageViewController!
-    @IBOutlet weak var stickerView: UIImageView!
+    @IBOutlet weak var stickersTableView: UITableView!
+    
+    private func loadStickersImages(from boundle: String) -> [UIImage] {
+        var stickers = [UIImage]()
+        
+        let fileManager = FileManager.default
+        let bundleURL = Bundle.main.bundleURL
+        let assetURL = bundleURL.appendingPathComponent(boundle)
+        let contents = try! fileManager.contentsOfDirectory(at: assetURL,
+                                                            includingPropertiesForKeys: [URLResourceKey.nameKey,
+                                                                                         URLResourceKey.isDirectoryKey],
+                                                            options: .skipsHiddenFiles)
+        
+        for img in contents {
+            if let sticker = UIImage(named: "\(boundle)/\(img.lastPathComponent)") {
+                stickers.append(sticker)
+            }
+        }
+        
+        return stickers
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        createPinchGestureFor(sticker: stickerView)
-        // Do any additional setup after loading the view.
+        self.stickerViews = loadStickersImages(from: STICKERS_BUNDLE)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.stickerViews.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell()
+        cell.frame.size.height = cell.frame.size.height * 3
+        let startIdx = indexPath.row * STICKERS_PER_ROW
+        let endIdx = min(startIdx+STICKERS_PER_ROW, stickerViews.count)
+        
+        if startIdx < endIdx {
+            
+            let stickersStack = UIStackView(frame: cell.bounds)
+            stickersStack.alignment = .fill
+            stickersStack.axis = .horizontal
+            stickersStack.distribution = .fillEqually
+            stickersStack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            for idx in startIdx..<endIdx  {
+                let stickerView = UIImageView(image: stickerViews[idx])
+                stickerView.frame.size.height = cell.frame.size.height
+                stickerView.frame.size.width = cell.frame.size.width / 4
+                stickerView.contentMode = UIViewContentMode.scaleAspectFit
+                
+                createPinchGestureFor(sticker: stickerView)
+                stickersStack.addArrangedSubview(stickerView)
+            }
+            
+            cell.addSubview(stickersStack)
+        }
+        return cell
     }
     
     func createPinchGestureFor(sticker: UIImageView) {
@@ -30,7 +87,6 @@ class StickerPickerViewController: UIViewController {
         sticker.isUserInteractionEnabled = true
     }
     
-    //_ sender: UIPinchGestureRecognizer
     func sendImageBackTo(_ sender: UITapGestureRecognizer) {
         
         if let targetView = sender.view as? UIImageView {
@@ -41,14 +97,8 @@ class StickerPickerViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        stickersTableView.rowHeight = ROW_HEIGHT
     }
-    */
-
 }

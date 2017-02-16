@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B5DF7D21E520ED50092CCC1 /* StickerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5DF7D11E520ED50092CCC1 /* StickerPickerViewController.swift */; };
+		4B654DB51E523E57004BFDB9 /* stickers.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4B654DB41E523E57004BFDB9 /* stickers.bundle */; };
 		4B6FC9451E4D0E38008D304B /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FC9441E4D0E38008D304B /* EditImageViewController.swift */; };
 		4B95E66C1E4A6C830070EA1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */; };
 		4B95E66E1E4A6C830070EA1D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95E66D1E4A6C830070EA1D /* CameraViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		4B5DF7D11E520ED50092CCC1 /* StickerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerPickerViewController.swift; sourceTree = "<group>"; };
+		4B654DB41E523E57004BFDB9 /* stickers.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = stickers.bundle; sourceTree = "<group>"; };
 		4B6FC9441E4D0E38008D304B /* EditImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		4B95E6681E4A6C830070EA1D /* Famous.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Famous.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		4B95E66A1E4A6C830070EA1D /* Famous */ = {
 			isa = PBXGroup;
 			children = (
+				4B654DB41E523E57004BFDB9 /* stickers.bundle */,
 				4B95E66B1E4A6C830070EA1D /* AppDelegate.swift */,
 				4BF93E8B1E4B9436003C62F8 /* PreviewView.swift */,
 				4B95E66D1E4A6C830070EA1D /* CameraViewController.swift */,
@@ -139,6 +142,7 @@
 				4B95E6761E4A6C830070EA1D /* LaunchScreen.storyboard in Resources */,
 				4B95E6731E4A6C830070EA1D /* Assets.xcassets in Resources */,
 				4B95E6711E4A6C830070EA1D /* Main.storyboard in Resources */,
+				4B654DB51E523E57004BFDB9 /* stickers.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
