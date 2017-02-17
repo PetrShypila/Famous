@@ -9,7 +9,7 @@
 import UIKit
 
 class EditImageViewController: UIViewController, UIScrollViewDelegate {
-    var photoData: Data?
+    var photo: UIImage?
     var photoView: UIView!
     var stickers = [UIImageView]()
     
@@ -18,9 +18,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let photoData = self.photoData {
-            let photo = UIImage(data: photoData)
-            photoView = UIImageView(image: photo)
+        if let activePhoto = self.photo {
+            photoView = UIImageView(image: activePhoto)
             
             self.photoScrollView.contentSize = photoView.bounds.size
             self.photoScrollView.addSubview(photoView)
@@ -33,12 +32,6 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func saveImage(_ sender: Any) {
-//        let snapShot:UIView = photoScrollView.snapshotView(afterScreenUpdates: true)!
-//        UIGraphicsBeginImageContext(photoScrollView.bounds.size)
-//        snapShot.drawHierarchy(in: photoScrollView.bounds, afterScreenUpdates: true)
-//        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        
         //Create the UIImage
         UIGraphicsBeginImageContext(photoScrollView.frame.size)
         photoScrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -54,8 +47,14 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
         performSegueToReturnBack()
     }
     
-    func add(sticker: UIImage) {
+    func add(sticker: UIImage, height: CGFloat, width: CGFloat) {
+        
         let newSticker = UIImageView(image: sticker)
+        
+        newSticker.backgroundColor = UIColor.blue
+        newSticker.contentMode = UIViewContentMode.scaleAspectFit
+        newSticker.frame.size = CGSize(width: width, height: height)
+        
         photoScrollView.addSubview(newSticker)
         addGestures(view: newSticker)
         stickers.append(newSticker)

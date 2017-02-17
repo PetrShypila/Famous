@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
+class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet private weak var photoButton: UIButton!
     @IBOutlet private weak var resumeButton: UIButton!
@@ -28,7 +28,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera],
                                                                               mediaType: AVMediaTypeVideo,
                                                                               position: .unspecified)!
-    private var photoData: Data?
+    private var photo: UIImage?
     private var isSessionRunning = false
     private var sessionRunningObserveContext = 0
     private var inProgressLivePhotoCapturesCount = 0
@@ -41,7 +41,19 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Send image to next viewcontroller which will be used as palete
         if let editImageViewController = segue.destination as? EditImageViewController {
-            editImageViewController.photoData = photoData
+            editImageViewController.photo = photo
+        }
+    }
+    
+    @IBAction func pickFromCameraRoll(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+            
+            self.performSegue(withIdentifier: "editPhoto", sender: nil)
         }
     }
     
@@ -84,7 +96,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                     self.inProgressPhotoCaptureDelegates[photoCaptureDelegate.requestedPhotoSettings.uniqueID] = nil
                 }
                 
-                self.photoData = photoCaptureDelegate.photoData
+                self.photo = UIImage(data: photoCaptureDelegate.photoData!)
                 self.performSegue(withIdentifier: "editPhoto", sender: nil)
             })
             
@@ -95,6 +107,17 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
              */
             self.inProgressPhotoCaptureDelegates[photoCaptureDelegate.requestedPhotoSettings.uniqueID] = photoCaptureDelegate
             self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureDelegate)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            self.photo = pickedImage
+            self.dismiss(animated: true, completion: { self.performSegue(withIdentifier: "editPhoto", sender: nil) })
+            
+        } else {
+            print("Something went wrong")
         }
     }
     
@@ -208,6 +231,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         let devicePoint = self.previewView.videoPreviewLayer.captureDevicePointOfInterest(for: gestureRecognizer.location(in: gestureRecognizer.view))
         focus(with: .autoFocus, exposureMode: .autoExpose, at: devicePoint, monitorSubjectAreaChange: true)
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

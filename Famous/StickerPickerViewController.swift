@@ -9,7 +9,7 @@
 import UIKit
 
 class StickerPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    private let ROW_HEIGHT = 100.0
+    private let ROW_HEIGHT = CGFloat(100.0)
     private let STICKERS_BUNDLE = "stickers.bundle"
     private let STICKERS_PER_ROW = 2
     private var stickerViews: [UIImage]!
@@ -91,7 +91,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         if let targetView = sender.view as? UIImageView {
             if let sticker = targetView.image {
-                delegate.add(sticker: sticker)
+                
+                delegate.add(sticker: sticker, height: targetView.frame.height, width: targetView.frame.width)
                 performSegueToReturnBack()
             }
         }
