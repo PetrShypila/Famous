@@ -12,22 +12,17 @@ import Photos
 
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet private weak var cameraRollButton: UIButton!
     @IBOutlet private weak var photoButton: UIButton!
     @IBOutlet private weak var resumeButton: UIButton!
-    @IBOutlet private weak var cameraButton: UIButton!
+    @IBOutlet private weak var flipButton: UIButton!
     @IBOutlet private weak var previewView: PreviewView!
     @IBOutlet private weak var cameraUnavailableLabel: UILabel!
-    
-    
+        
     private let session = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
-    // Communicate with the session and other session objects on this queue.
-    private let sessionQueue = DispatchQueue(label: "session queue",
-                                             attributes: [],
-                                             target: nil)
-    private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera],
-                                                                              mediaType: AVMediaTypeVideo,
-                                                                              position: .unspecified)!
+    private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
+    private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera], mediaType: AVMediaTypeVideo, position: .unspecified)!
     private var photo: UIImage?
     private var isSessionRunning = false
     private var sessionRunningObserveContext = 0
@@ -44,7 +39,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             editImageViewController.photo = photo
         }
     }
-    
     @IBAction func pickFromCameraRoll(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -122,7 +116,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     @IBAction private func changeCamera(_ cameraButton: UIButton) {
-        cameraButton.isEnabled = false
+        cameraRollButton.isUserInteractionEnabled = false
+        flipButton.isUserInteractionEnabled = false
         photoButton.isEnabled = false
         
         sessionQueue.async { [unowned self] in
@@ -193,8 +188,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             }
             
             DispatchQueue.main.async { [unowned self] in
-                self.cameraButton.isEnabled = true
                 self.photoButton.isEnabled = true
+                self.flipButton.isUserInteractionEnabled = true
+                self.cameraRollButton.isUserInteractionEnabled = true
             }
         }
     }
@@ -238,8 +234,11 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         super.viewDidLoad()
         
         // Disable UI. The UI is enabled if and only if the session starts running.
-        cameraButton.isEnabled = false
         photoButton.isEnabled = false
+        flipButton.isUserInteractionEnabled = false
+        cameraRollButton.isUserInteractionEnabled = false
+        
+        addShadow(cameraRollButton, width: 2, height: 2)
         
         // Set up the video preview view.
         previewView.session = session
@@ -293,6 +292,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.addBlur(to: previewView)
+        self.updateImageToLastPhoto(cameraRollButton)
         
         sessionQueue.async {
             switch self.setupResult {
@@ -461,7 +463,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         // Enable the Camera and Record buttons to let the user switch camera and start another recording.
         DispatchQueue.main.async { [unowned self] in
             // Only enable the ability to change camera if the device has more than one camera.
-            self.cameraButton.isEnabled = self.videoDeviceDiscoverySession.uniqueDevicePositionsCount() > 1
+            self.flipButton.isUserInteractionEnabled = self.videoDeviceDiscoverySession.uniqueDevicePositionsCount() > 1
         }
     }
     
@@ -495,7 +497,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             
             DispatchQueue.main.async { [unowned self] in
                 // Only enable the ability to change camera if the device has more than one camera.
-                self.cameraButton.isEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount() > 1
+                self.flipButton.isUserInteractionEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount() > 1
+                self.cameraRollButton.isUserInteractionEnabled = isSessionRunning
                 self.photoButton.isEnabled = isSessionRunning
             }
         }

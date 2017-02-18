@@ -44,6 +44,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func goBack(_ sender: Any) {
+        stickers = [UIImageView]()
         performSegueToReturnBack()
     }
     
