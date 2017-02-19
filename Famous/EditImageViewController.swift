@@ -9,8 +9,8 @@
 import UIKit
 
 class EditImageViewController: UIViewController, UIScrollViewDelegate {
+    private let SCALE_FACTOR = CGFloat(1.2)
     var photo: UIImage?
-    var stickers = [UIImageView]()
     
     @IBOutlet weak var photoScrollView: UIScrollView!
     @IBOutlet weak var placeholderView: UIView!
@@ -33,7 +33,6 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        stickers = [UIImageView]()
         performSegueToReturnBack()
     }
     
@@ -72,17 +71,25 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func addStciker(_ sticker: UIImage, size stickerSize: CGSize, to parent: UIView) {
-        
-        let newSticker = UIImageView(image: sticker)
-        let parentCenterPoint = CGPoint(x: parent.bounds.width/2, y: parent.bounds.height/2) //parent.convert(parent.center, from: parent.superview)
-        
-        newSticker.backgroundColor = UIColor.blue
-        newSticker.center = parentCenterPoint
-        newSticker.contentMode = UIViewContentMode.scaleAspectFit
-        newSticker.frame.size = CGSize(width: stickerSize.width / photoScrollView.zoomScale, height: stickerSize.height / photoScrollView.zoomScale)
+        let newSticker = createView(for: sticker, of: stickerSize, to: parent)
         
         addGestures(view: newSticker)
         parent.addSubview(newSticker)
+    }
+    
+    private func createView(for stickerImage: UIImage, of size: CGSize, to parent: UIView) -> UIImageView {
+        let newSticker = UIImageView(image: stickerImage)
+        let parentCenterPoint = parent.convert(parent.center, from: parent.superview)
+        
+        let imageRatio = newSticker.image!.size.width / newSticker.image!.size.height
+        let imageViewHeight = size.height / photoScrollView.zoomScale * SCALE_FACTOR
+        let imageViewWidth = size.height / photoScrollView.zoomScale * imageRatio * SCALE_FACTOR
+        
+        newSticker.center = parentCenterPoint
+        newSticker.contentMode = UIViewContentMode.scaleAspectFit
+        newSticker.frame.size = CGSize(width: imageViewWidth, height: imageViewHeight)
+        
+        return newSticker
     }
 }
 
