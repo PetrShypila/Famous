@@ -92,7 +92,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         if let targetView = sender.view as? UIImageView {
             if let sticker = targetView.image {
                 
-                delegate.add(sticker: sticker, height: targetView.frame.height, width: targetView.frame.width)
+                delegate.addStciker(sticker, size: targetView.frame.size, to: delegate.placeholderView)
                 performSegueToReturnBack()
             }
         }
