@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditImageViewController: UIViewController, UIScrollViewDelegate {
+class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     private let SCALE_FACTOR = CGFloat(1.2)
     var photo: UIImage?
     
