@@ -41,7 +41,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         if let activePhoto = self.photo {
             photoView.image = activePhoto
-            
+            self.placeholderView.clipsToBounds = true
             self.photoScrollView.delegate = self
             
         } else {
