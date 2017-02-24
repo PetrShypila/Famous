@@ -191,6 +191,16 @@
                                     <constraint firstItem="8Au-Qu-l05" firstAttribute="centerX" secondItem="hbQ-5h-T5r" secondAttribute="centerX" placeholder="YES" id="xqw-b8-i9z"/>
                                 </constraints>
                             </scrollView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
+                                <rect key="frame" x="167" y="477" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6Fl-X8-xGc"/>
+                                    <constraint firstAttribute="width" constant="40" id="dG3-Ye-OFq"/>
+                                </constraints>
+                                <state key="normal" image="Trash">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eV-Ve-ReW" userLabel="X">
                                 <rect key="frame" x="32" y="512" width="40" height="40"/>
                                 <constraints>
@@ -240,8 +250,10 @@
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="3eV-Ve-ReW" secondAttribute="bottom" constant="115" id="KaD-aH-x4N"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="i7f-KO-Ztf" secondAttribute="bottom" constant="24" id="Onl-e7-Fzl"/>
                             <constraint firstItem="hbQ-5h-T5r" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leading" id="QOe-1K-UYQ"/>
+                            <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="UNc-Tg-qVe" secondAttribute="bottom" constant="150" id="R3O-My-7su"/>
                             <constraint firstItem="3eV-Ve-ReW" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leadingMargin" constant="16" id="Zut-Jd-Uwj"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="hbQ-5h-T5r" secondAttribute="bottom" constant="133" id="cKt-KI-idU"/>
+                            <constraint firstItem="UNc-Tg-qVe" firstAttribute="centerX" secondItem="IeE-Lu-e6i" secondAttribute="centerX" id="wBS-FZ-1Lo"/>
                             <constraint firstItem="i7f-KO-Ztf" firstAttribute="centerX" secondItem="IeE-Lu-e6i" secondAttribute="centerX" id="xUT-E8-qmx"/>
                             <constraint firstAttribute="trailing" secondItem="hbQ-5h-T5r" secondAttribute="trailing" id="yhE-tE-zOG"/>
                         </constraints>
@@ -250,6 +262,7 @@
                         <outlet property="photoScrollView" destination="hbQ-5h-T5r" id="91Q-Ob-kc4"/>
                         <outlet property="photoView" destination="Mnt-Iq-RXK" id="PKs-Qr-Vy2"/>
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
+                        <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5YZ-1z-GEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,6 +322,7 @@
         <image name="Cancel" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
         <image name="Photo Button" width="170" height="170"/>
+        <image name="Trash" width="170" height="170"/>
     </resources>
     <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

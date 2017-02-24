@@ -12,21 +12,26 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     private let SCALE_FACTOR = CGFloat(1.2)
     var photo: UIImage?
     
+    var viewIntersectionStorage = [Int: Bool]()
+    var viewTransformStorage = [Int: CGAffineTransform]()
+    
     @IBOutlet weak var photoScrollView: UIScrollView!
     @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var photoView: UIImageView!
 
+    @IBOutlet weak var trashBin: UIButton!
+    
     @IBAction func saveImage(_ sender: Any) {
         
         //Create the UIImage
-        let zoomVal = photoScrollView.zoomScale
-        photoScrollView.zoomScale = 1.0
+        let zoomVal = self.photoScrollView.zoomScale
+        self.photoScrollView.zoomScale = 1.0
         
-        UIGraphicsBeginImageContext(placeholderView.frame.size)
-        placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        UIGraphicsBeginImageContext(self.placeholderView.frame.size)
+        self.placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        photoScrollView.zoomScale = zoomVal
+        self.photoScrollView.zoomScale = zoomVal
         //Save it to the camera roll
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
