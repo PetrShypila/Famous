@@ -27,7 +27,6 @@ extension EditImageViewController {
     }
     
     func panImage(_ sender: UIPanGestureRecognizer) {
-        
         trashBinCheck(sender)
         
         if let stickerView = sender.view as? UIImageView {
@@ -38,7 +37,7 @@ extension EditImageViewController {
             
             sender.setTranslation(CGPoint.zero, in: self.view)
             
-            tryToDelete(stickerView, state: sender.state)
+            processView(from: sender)
         }
     }
     
@@ -63,66 +62,70 @@ extension EditImageViewController {
         }
     }
     
-    func intersectWithTrash(_ view: UIView) -> Bool {
+    func intersect(_ gesture: UIGestureRecognizer, with view: UIView) -> Bool {
         // Transform from scaled space to screen space
-        let stickerOrigin = view.superview!.convert(view.frame, to: nil)
+        //let stickerOrigin = view.superview!.convert(view.frame, to: nil)
+        let touchPoint = gesture.location(in: view.superview!)
         
-        return self.trashBin.frame.intersects(stickerOrigin)
+        print("intersects ", view.frame.contains(touchPoint))
+        
+        return view.frame.contains(touchPoint)
     }
     
-    func tryToDelete(_ stickerView: UIView, state: UIGestureRecognizerState) {
-        
-        // If sticker intersects with trash bin
-        if intersectWithTrash(stickerView) {
+    func processView(from gesture: UIGestureRecognizer) {
+        if let stickerView = gesture.view {
             
-            // Animate downscale image
-            UIView.animate(withDuration: 0.5,
-                           delay: 1.0,
-                           options: .beginFromCurrentState,
-                           animations: {
-                            
-                            if self.intersectWithTrash(stickerView) {
-                                // Flag intersection
-                                self.viewIntersectionStorage[stickerView.hash] = true
-                                
-                                //Store its scale and rotation state
-                                if self.viewTransformStorage[stickerView.hash] == nil {
-                                    self.viewTransformStorage[stickerView.hash] = stickerView.transform
-                                }
-                                
-                                stickerView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                                
-                                if state == .ended {
-                                    stickerView.removeFromSuperview()
-                                }
-                            }
-                           },
-                           completion: nil)
-            
-            // If not intersected anymore - restore scale to previous one.
-        } else if let stickerIntersected = self.viewIntersectionStorage[stickerView.hash], stickerIntersected == true {
-            
-            //Check if previous state saved
-            if let previousTransform = self.viewTransformStorage[stickerView.hash] {
+            // If sticker intersects with trash bin
+            if intersect(gesture, with: self.trashBin) {
                 
-                // Restore to original state
+                // Animate downscale image
                 UIView.animate(withDuration: 0.5,
                                delay: 1.0,
                                options: .beginFromCurrentState,
                                animations: {
                                 
-                                if !self.intersectWithTrash(stickerView) {
-                                    stickerView.transform = previousTransform
-                                    self.viewTransformStorage[stickerView.hash] = nil
+                                if self.intersect(gesture, with: self.trashBin) {
+                                    // Flag intersection
+                                    self.viewIntersectionStorage[stickerView.hash] = true
+                                    
+                                    //Store its scale and rotation state
+                                    if self.viewTransformStorage[stickerView.hash] == nil {
+                                        self.viewTransformStorage[stickerView.hash] = stickerView.transform
+                                    }
+                                    
+                                    stickerView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                                    
+                                    if gesture.state == .ended {
+                                        stickerView.removeFromSuperview()
+                                    }
                                 }
-                                
                                },
                                completion: nil)
+                
+                // If not intersected anymore - restore scale to previous one.
+            } else if let stickerIntersected = self.viewIntersectionStorage[stickerView.hash], stickerIntersected == true {
+                
+                //Check if previous state saved
+                if let previousTransform = self.viewTransformStorage[stickerView.hash] {
+                    
+                    // Restore to original state
+                    UIView.animate(withDuration: 0.5,
+                                   delay: 1.0,
+                                   options: .beginFromCurrentState,
+                                   animations: {
+                                    
+                                    if !self.intersect(gesture, with: self.trashBin) {
+                                        stickerView.transform = previousTransform
+                                        self.viewTransformStorage[stickerView.hash] = nil
+                                    }
+                                    
+                                   },
+                                   completion: nil)
+                }
+                
+                // Set back to false
+                self.viewIntersectionStorage[stickerView.hash] = false
             }
-            
-            // Set back to false
-            self.viewIntersectionStorage[stickerView.hash] = false
         }
-        
     }
 }
