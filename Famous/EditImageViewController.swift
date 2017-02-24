@@ -84,7 +84,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     private func createView(for stickerImage: UIImage, of size: CGSize, to parent: UIView) -> UIImageView {
         let newSticker = UIImageView(image: stickerImage)
-        let parentCenterPoint = parent.convert(parent.center, from: parent.superview)
+        let parentCenterPoint = self.view.convert(self.view.center, to: self.placeholderView)
         
         let imageRatio = newSticker.image!.size.width / newSticker.image!.size.height
         let imageViewHeight = size.height / photoScrollView.zoomScale * SCALE_FACTOR

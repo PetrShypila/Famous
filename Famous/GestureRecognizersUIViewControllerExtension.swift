@@ -64,10 +64,7 @@ extension EditImageViewController {
     
     func intersect(_ gesture: UIGestureRecognizer, with view: UIView) -> Bool {
         // Transform from scaled space to screen space
-        //let stickerOrigin = view.superview!.convert(view.frame, to: nil)
         let touchPoint = gesture.location(in: view.superview!)
-        
-        print("intersects ", view.frame.contains(touchPoint))
         
         return view.frame.contains(touchPoint)
     }
