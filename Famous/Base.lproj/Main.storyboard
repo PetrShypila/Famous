@@ -25,7 +25,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eR-Rn-XpZ" userLabel="Preview" customClass="PreviewView" customModule="Famous" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soh-7y-JRH">
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soh-7y-JRH">
                                         <rect key="frame" x="16" y="586" width="65" height="65"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -192,10 +192,10 @@
                                 </constraints>
                             </scrollView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
-                                <rect key="frame" x="167" y="477" width="40" height="40"/>
+                                <rect key="frame" x="157" y="467" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="6Fl-X8-xGc"/>
-                                    <constraint firstAttribute="width" constant="40" id="dG3-Ye-OFq"/>
+                                    <constraint firstAttribute="height" constant="60" id="6Fl-X8-xGc"/>
+                                    <constraint firstAttribute="width" constant="60" id="dG3-Ye-OFq"/>
                                 </constraints>
                                 <state key="normal" image="Trash">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,7 +250,7 @@
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="3eV-Ve-ReW" secondAttribute="bottom" constant="115" id="KaD-aH-x4N"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="i7f-KO-Ztf" secondAttribute="bottom" constant="24" id="Onl-e7-Fzl"/>
                             <constraint firstItem="hbQ-5h-T5r" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leading" id="QOe-1K-UYQ"/>
-                            <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="UNc-Tg-qVe" secondAttribute="bottom" constant="150" id="R3O-My-7su"/>
+                            <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="UNc-Tg-qVe" secondAttribute="bottom" constant="140" id="R3O-My-7su"/>
                             <constraint firstItem="3eV-Ve-ReW" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leadingMargin" constant="16" id="Zut-Jd-Uwj"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="hbQ-5h-T5r" secondAttribute="bottom" constant="133" id="cKt-KI-idU"/>
                             <constraint firstItem="UNc-Tg-qVe" firstAttribute="centerX" secondItem="IeE-Lu-e6i" secondAttribute="centerX" id="wBS-FZ-1Lo"/>

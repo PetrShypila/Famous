@@ -293,8 +293,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.addBlur(to: previewView)
-        self.updateImageToLastPhoto(cameraRollButton)
+        self.addBlur(to: self.previewView)
+        updateImageToLastPhoto(self.cameraRollButton)
         
         sessionQueue.async {
             switch self.setupResult {
@@ -338,6 +338,12 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
         
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Adjusting scale for photos preview
+        (self.cameraRollButton.subviews[0] as! UIImageView).contentMode = .scaleAspectFill
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

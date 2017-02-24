@@ -45,8 +45,7 @@ extension UIViewController {
             imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1) as PHAsset, targetSize: view.frame.size, contentMode: .aspectFill, options: requestOptions, resultHandler: { (img, _) in
                 
                 if img != nil {
-                    rollButton.setBackgroundImage(img, for: UIControlState.normal)
-                    rollButton.contentMode = .scaleToFill
+                    rollButton.setBackgroundImage(img, for: .normal)
                 } else {
                     rollButton.backgroundColor = UIColor.white
                 }
