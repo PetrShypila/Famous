@@ -40,7 +40,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ro5-ZJ-RWU" userLabel="Flip Camera">
-                                        <rect key="frame" x="294" y="586" width="65" height="65"/>
+                                        <rect key="frame" x="294" y="582" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="Gos-qm-LxA"/>
                                             <constraint firstAttribute="width" constant="65" id="PPj-sc-kL4"/>
@@ -53,10 +53,10 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Ro5-ZJ-RWU" secondAttribute="bottom" constant="16" id="E91-ZA-qPj"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ro5-ZJ-RWU" secondAttribute="bottom" constant="20" id="E91-ZA-qPj"/>
                                     <constraint firstAttribute="bottom" secondItem="Soh-7y-JRH" secondAttribute="bottom" constant="16" id="F9A-sC-3PN"/>
                                     <constraint firstAttribute="trailing" secondItem="Ro5-ZJ-RWU" secondAttribute="trailing" constant="16" id="sYs-HM-8OY"/>
                                     <constraint firstItem="Soh-7y-JRH" firstAttribute="leading" secondItem="3eR-Rn-XpZ" secondAttribute="leading" constant="16" id="vBH-s0-i7p"/>
@@ -98,7 +98,7 @@
                                     <constraint firstAttribute="width" constant="80" id="zPe-0L-ZYb"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="Photo Button">
+                                <state key="normal" image="Camera">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
@@ -228,13 +228,13 @@
                                     <action selector="saveImage:" destination="mr6-px-sgL" eventType="touchUpInside" id="7c0-ep-3Z0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-cP-CXT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-cP-CXT">
                                 <rect key="frame" x="289" y="503" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="QRq-PT-epk"/>
                                     <constraint firstAttribute="width" constant="60" id="nXQ-HU-gu7"/>
                                 </constraints>
-                                <state key="normal" title="&gt;">
+                                <state key="normal" image="Stickers">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -242,7 +242,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hbQ-5h-T5r" firstAttribute="top" secondItem="IeE-Lu-e6i" secondAttribute="top" constant="50" id="4nT-gE-5fw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3Df-cP-CXT" secondAttribute="trailing" constant="10" id="8nm-LD-mFC"/>
@@ -260,12 +260,12 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="6T7-1W-ArO" id="1dP-zv-5kA"/>
-                        <outlet property="leadingConstraint" destination="ntG-GU-RjZ" id="gdR-TF-Qhf"/>
+                        <outlet property="cancelButton" destination="3eV-Ve-ReW" id="Biw-if-L3Z"/>
                         <outlet property="photoScrollView" destination="hbQ-5h-T5r" id="91Q-Ob-kc4"/>
                         <outlet property="photoView" destination="Mnt-Iq-RXK" id="PKs-Qr-Vy2"/>
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
+                        <outlet property="stickersButton" destination="3Df-cP-CXT" id="Wgk-Us-nnY"/>
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
-                        <outlet property="trailingConstraint" destination="YTn-RK-6Ce" id="6GS-75-OKa"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
                     </connections>
                 </viewController>
@@ -285,30 +285,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-yV-aVF">
-                                <rect key="frame" x="16" y="629" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&lt;">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aJr-FM-Gnr">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aJr-FM-Gnr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="5ng-DN-lxj" id="uye-sl-6wA"/>
                                     <outlet property="delegate" destination="5ng-DN-lxj" id="GFO-xY-7xM"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-yV-aVF">
+                                <rect key="frame" x="16" y="607" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="mkz-ge-SlI"/>
+                                    <constraint firstAttribute="height" constant="40" id="p9F-LJ-B5P"/>
+                                </constraints>
+                                <state key="normal" title="&lt;">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="performBack:" destination="5ng-DN-lxj" eventType="touchUpInside" id="WyX-Um-Kub"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aJr-FM-Gnr" firstAttribute="top" secondItem="ejE-U5-xRx" secondAttribute="bottom" id="IdL-r4-12y"/>
                             <constraint firstItem="aJr-FM-Gnr" firstAttribute="bottom" secondItem="JpS-al-mZF" secondAttribute="top" id="U0M-Zh-8dT"/>
                             <constraint firstItem="aJr-FM-Gnr" firstAttribute="leading" secondItem="kyD-Ti-6DQ" secondAttribute="leading" id="Yae-gM-AnE"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="OOr-yV-aVF" secondAttribute="leading" id="eVm-NS-TMz"/>
                             <constraint firstItem="aJr-FM-Gnr" firstAttribute="leading" secondItem="kyD-Ti-6DQ" secondAttribute="leading" id="fyk-EU-Bp9"/>
                             <constraint firstItem="aJr-FM-Gnr" firstAttribute="top" secondItem="ejE-U5-xRx" secondAttribute="bottom" id="ifY-gR-wCH"/>
                             <constraint firstAttribute="trailing" secondItem="aJr-FM-Gnr" secondAttribute="trailing" id="md2-T3-lBE"/>
+                            <constraint firstItem="JpS-al-mZF" firstAttribute="top" secondItem="OOr-yV-aVF" secondAttribute="bottom" constant="20" id="oDD-us-yfG"/>
                             <constraint firstItem="JpS-al-mZF" firstAttribute="top" secondItem="aJr-FM-Gnr" secondAttribute="bottom" id="uAs-ST-a9N"/>
                             <constraint firstAttribute="trailing" secondItem="aJr-FM-Gnr" secondAttribute="trailing" id="xNc-nO-UYS"/>
                         </constraints>
@@ -323,9 +334,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Camera" width="170" height="170"/>
         <image name="Cancel" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
-        <image name="Photo Button" width="170" height="170"/>
+        <image name="Stickers" width="170" height="170"/>
         <image name="Trash" width="170" height="170"/>
     </resources>
     <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

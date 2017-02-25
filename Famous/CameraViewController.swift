@@ -238,7 +238,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         flipButton.isUserInteractionEnabled = false
         cameraRollButton.isUserInteractionEnabled = false
         
-        addShadow(cameraRollButton, width: 2, height: 2)
+        addShadow(cameraRollButton)
         
         // Set up the video preview view.
         previewView.session = session

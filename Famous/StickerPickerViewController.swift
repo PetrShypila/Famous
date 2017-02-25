@@ -17,6 +17,10 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     weak var delegate: EditImageViewController!
     @IBOutlet weak var stickersTableView: UITableView!
     
+    @IBAction func performBack(_ sender: Any) {
+        performSegueToReturnBack()
+    }
+    
     private func loadStickersImages(from boundle: String) -> [UIImage] {
         var stickers = [UIImage]()
         

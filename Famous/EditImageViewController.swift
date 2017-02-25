@@ -15,14 +15,14 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     var viewIntersectionStorage = [Int: Bool]()
     var viewTransformStorage = [Int: CGAffineTransform]()
     
+    @IBOutlet weak var stickersButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var photoScrollView: UIScrollView!
     @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var photoView: UIImageView!
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
     
 
     @IBOutlet weak var trashBin: UIButton!
@@ -54,6 +54,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             photoView.image = activePhoto
             self.placeholderView.clipsToBounds = true
             self.photoScrollView.delegate = self
+            
+            addShadow(self.photoScrollView)
+            addShadow(self.cancelButton)
+            addShadow(self.stickersButton)
             
         } else {
             print("Photo not set")

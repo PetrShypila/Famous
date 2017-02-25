@@ -19,11 +19,11 @@ extension UIViewController {
         view.insertSubview(blurEffectView, at: 0)
     }
     
-    func addShadow(_ button: UIView, width: Int, height: Int) {
+    func addShadow(_ button: UIView) {
         button.layer.shadowRadius = 2
         button.layer.shadowOpacity = 0.8
         button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: width, height: height)
+        button.layer.shadowOffset = CGSize(width: 2, height: 2)
     }
     
     func updateImageToLastPhoto(_ rollButton: UIButton) {
