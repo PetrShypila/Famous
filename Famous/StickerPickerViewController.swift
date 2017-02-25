@@ -16,6 +16,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     
     weak var delegate: EditImageViewController!
     @IBOutlet weak var stickersTableView: UITableView!
+    @IBOutlet weak var backButton: UIButton!
     
     @IBAction func performBack(_ sender: Any) {
         performSegueToReturnBack()
@@ -44,6 +45,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.stickerViews = loadStickersImages(from: STICKERS_BUNDLE)
+        addShadow(self.backButton)
     }
 
     override func didReceiveMemoryWarning() {

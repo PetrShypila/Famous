@@ -296,13 +296,13 @@
                                     <outlet property="delegate" destination="5ng-DN-lxj" id="GFO-xY-7xM"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-yV-aVF">
-                                <rect key="frame" x="16" y="607" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-yV-aVF">
+                                <rect key="frame" x="16" y="587" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="mkz-ge-SlI"/>
-                                    <constraint firstAttribute="height" constant="40" id="p9F-LJ-B5P"/>
+                                    <constraint firstAttribute="width" constant="60" id="mkz-ge-SlI"/>
+                                    <constraint firstAttribute="height" constant="60" id="p9F-LJ-B5P"/>
                                 </constraints>
-                                <state key="normal" title="&lt;">
+                                <state key="normal" image="Back">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -325,6 +325,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="OOr-yV-aVF" id="Iqg-42-qbn"/>
                         <outlet property="stickersTableView" destination="aJr-FM-Gnr" id="Vcy-E2-XOI"/>
                     </connections>
                 </viewController>
@@ -334,6 +335,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Back" width="199" height="198"/>
         <image name="Camera" width="170" height="170"/>
         <image name="Cancel" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
