@@ -259,9 +259,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="6T7-1W-ArO" id="1dP-zv-5kA"/>
+                        <outlet property="leadingConstraint" destination="ntG-GU-RjZ" id="gdR-TF-Qhf"/>
                         <outlet property="photoScrollView" destination="hbQ-5h-T5r" id="91Q-Ob-kc4"/>
                         <outlet property="photoView" destination="Mnt-Iq-RXK" id="PKs-Qr-Vy2"/>
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
+                        <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
+                        <outlet property="trailingConstraint" destination="YTn-RK-6Ce" id="6GS-75-OKa"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
                     </connections>
                 </viewController>

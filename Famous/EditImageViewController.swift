@@ -18,6 +18,12 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var photoScrollView: UIScrollView!
     @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var photoView: UIImageView!
+    
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
+    
 
     @IBOutlet weak var trashBin: UIButton!
     
@@ -64,6 +70,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             stickerViewController.delegate = self
         }
     }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateConstraintsFor(size: scrollView.frame.size)
+    }
 
     private func updateMinZoomScaleForSize(_ size: CGSize) {
         let widthScale = size.width / self.photoView.bounds.width
@@ -73,6 +83,15 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         self.photoScrollView.maximumZoomScale = 1.0
         self.photoScrollView.minimumZoomScale = minScale
         self.photoScrollView.zoomScale = minScale
+    }
+    
+    private func updateConstraintsFor(size: CGSize) {
+        
+        let yOffset = max(0, (size.height - self.placeholderView.frame.height) / 2)
+        self.topConstraint.constant = yOffset
+        self.bottomConstraint.constant = yOffset
+        
+        view.layoutIfNeeded()
     }
     
     func addStciker(_ sticker: UIImage, size stickerSize: CGSize, to parent: UIView) {
