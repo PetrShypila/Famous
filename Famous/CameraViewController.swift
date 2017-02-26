@@ -39,6 +39,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             editImageViewController.photo = photo
         }
     }
+    
     @IBAction func pickFromCameraRoll(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -293,7 +294,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.addBlur(to: self.previewView)
         updateImageToLastPhoto(self.cameraRollButton)
         
         sessionQueue.async {
@@ -700,6 +700,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
         
         session.commitConfiguration()
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }
 

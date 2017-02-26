@@ -15,6 +15,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     private var stickerViews: [UIImage]!
     
     weak var delegate: EditImageViewController!
+    weak var backgroundImage: UIImage!
+    
     @IBOutlet weak var stickersTableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
     
@@ -44,7 +46,11 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.stickersTableView.backgroundView = UIImageView(image: backgroundImage)
         self.stickerViews = loadStickersImages(from: STICKERS_BUNDLE)
+        
+        addBlur(to: self.stickersTableView)
         addShadow(self.backButton)
     }
 
@@ -60,6 +66,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
+        cell.backgroundColor = UIColor.clear
         cell.frame.size.height = cell.frame.size.height * 3
         let startIdx = indexPath.row * STICKERS_PER_ROW
         let endIdx = min(startIdx+STICKERS_PER_ROW, stickerViews.count)
@@ -81,7 +88,6 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
                 createPinchGestureFor(sticker: stickerView)
                 stickersStack.addArrangedSubview(stickerView)
             }
-            
             cell.addSubview(stickersStack)
         }
         return cell
@@ -107,5 +113,9 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         stickersTableView.rowHeight = ROW_HEIGHT
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }

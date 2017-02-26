@@ -10,8 +10,8 @@ import UIKit
 
 class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     private let SCALE_FACTOR = CGFloat(1.2)
-    var photo: UIImage?
     
+    var photo: UIImage!
     var viewIntersectionStorage = [Int: Bool]()
     var viewTransformStorage = [Int: CGAffineTransform]()
     
@@ -72,6 +72,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let stickerViewController = segue.destination as? StickerPickerViewController {
             stickerViewController.delegate = self
+            stickerViewController.backgroundImage = self.photo
         }
     }
     
@@ -118,6 +119,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         newSticker.frame.size = CGSize(width: imageViewWidth, height: imageViewHeight)
         
         return newSticker
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }
 

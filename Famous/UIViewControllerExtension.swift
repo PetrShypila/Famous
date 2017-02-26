@@ -12,7 +12,7 @@ import Foundation
 extension UIViewController {
     
     func addBlur(to view: UIView) {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -20,8 +20,8 @@ extension UIViewController {
     }
     
     func addShadow(_ button: UIView) {
-        button.layer.shadowRadius = 2
-        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 2, height: 2)
     }
