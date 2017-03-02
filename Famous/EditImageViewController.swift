@@ -23,6 +23,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var trashBinBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
 
     @IBOutlet weak var trashBin: UIButton!
@@ -104,6 +106,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         addGestures(view: newSticker)
         parent.addSubview(newSticker)
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
     }
     
     private func createView(for stickerImage: UIImage, of size: CGSize, to parent: UIView) -> UIImageView {

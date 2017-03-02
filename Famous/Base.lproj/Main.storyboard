@@ -191,7 +191,7 @@
                                     <constraint firstItem="8Au-Qu-l05" firstAttribute="centerX" secondItem="hbQ-5h-T5r" secondAttribute="centerX" placeholder="YES" id="xqw-b8-i9z"/>
                                 </constraints>
                             </scrollView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
                                 <rect key="frame" x="157" y="467" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="6Fl-X8-xGc"/>
@@ -264,9 +264,11 @@
                         <outlet property="photoScrollView" destination="hbQ-5h-T5r" id="91Q-Ob-kc4"/>
                         <outlet property="photoView" destination="Mnt-Iq-RXK" id="PKs-Qr-Vy2"/>
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
+                        <outlet property="scrollViewBottomConstraint" destination="cKt-KI-idU" id="oFh-Ce-95x"/>
                         <outlet property="stickersButton" destination="3Df-cP-CXT" id="Wgk-Us-nnY"/>
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
+                        <outlet property="trashBinBottomConstraint" destination="R3O-My-7su" id="CFa-c3-DCi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5YZ-1z-GEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
