@@ -10,6 +10,7 @@ import UIKit
 
 class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     private let SCALE_FACTOR = CGFloat(1.2)
+    private var initialLayout = true
     
     var photo: UIImage!
     var viewIntersectionStorage = [Int: Bool]()
@@ -66,9 +67,19 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.initialLayout = false
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        updateMinZoomScaleForSize(view.bounds.size)
+        
+        if self.initialLayout == true {
+            updateMinZoomScaleForSize(view.bounds.size)
+        }
+        
+        self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,6 +91,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         updateConstraintsFor(size: scrollView.frame.size)
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        self.view.setNeedsUpdateConstraints()
     }
 
     private func updateMinZoomScaleForSize(_ size: CGSize) {
@@ -98,7 +113,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         self.topConstraint.constant = yOffset
         self.bottomConstraint.constant = yOffset
         
-        view.layoutIfNeeded()
+        self.view.layoutIfNeeded()
     }
     
     func addStciker(_ sticker: UIImage, size stickerSize: CGSize, to parent: UIView) {
@@ -106,10 +121,6 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         addGestures(view: newSticker)
         parent.addSubview(newSticker)
-    }
-    
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
     }
     
     private func createView(for stickerImage: UIImage, of size: CGSize, to parent: UIView) -> UIImageView {
