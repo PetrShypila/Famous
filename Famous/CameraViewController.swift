@@ -235,14 +235,23 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         super.viewDidLoad()
         
         // Disable UI. The UI is enabled if and only if the session starts running.
-        photoButton.isEnabled = false
-        flipButton.isUserInteractionEnabled = false
-        cameraRollButton.isUserInteractionEnabled = false
+        self.photoButton.isEnabled = false
         
-        addShadow(cameraRollButton)
+        self.flipButton.layoutIfNeeded()
+        self.flipButton.clipsToBounds = true
+        self.flipButton.layer.cornerRadius = self.flipButton.bounds.size.width / 10.0
+        self.flipButton.isUserInteractionEnabled = false
+        
+        self.cameraRollButton.layoutIfNeeded()
+        self.cameraRollButton.clipsToBounds = true
+        self.cameraRollButton.layer.cornerRadius = self.cameraRollButton.bounds.size.width / 10.0
+        self.cameraRollButton.isUserInteractionEnabled = false
+        
+        addShadow(self.cameraRollButton)
+        addShadow(self.photoButton)
         
         // Set up the video preview view.
-        previewView.session = session
+        self.previewView.session = session
         
         /*
          Check video authorization status. Video access is required and audio

@@ -26,11 +26,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soh-7y-JRH">
-                                        <rect key="frame" x="16" y="586" width="65" height="65"/>
+                                        <rect key="frame" x="16" y="592" width="60" height="60"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="65" id="5bW-4A-wgP"/>
-                                            <constraint firstAttribute="height" constant="65" id="MJl-8F-YpN"/>
+                                            <constraint firstAttribute="width" constant="60" id="5bW-4A-wgP"/>
+                                            <constraint firstAttribute="height" constant="60" id="MJl-8F-YpN"/>
                                         </constraints>
                                         <state key="normal">
                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -40,10 +40,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ro5-ZJ-RWU" userLabel="Flip Camera">
-                                        <rect key="frame" x="294" y="582" width="65" height="65"/>
+                                        <rect key="frame" x="299" y="592" width="60" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="Gos-qm-LxA"/>
-                                            <constraint firstAttribute="width" constant="65" id="PPj-sc-kL4"/>
+                                            <constraint firstAttribute="height" constant="60" id="Gos-qm-LxA"/>
+                                            <constraint firstAttribute="width" constant="60" id="PPj-sc-kL4"/>
                                         </constraints>
                                         <state key="normal" image="Flip Camera">
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -56,8 +56,8 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Ro5-ZJ-RWU" secondAttribute="bottom" constant="20" id="E91-ZA-qPj"/>
-                                    <constraint firstAttribute="bottom" secondItem="Soh-7y-JRH" secondAttribute="bottom" constant="16" id="F9A-sC-3PN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ro5-ZJ-RWU" secondAttribute="bottom" constant="15" id="E91-ZA-qPj"/>
+                                    <constraint firstAttribute="bottom" secondItem="Soh-7y-JRH" secondAttribute="bottom" constant="15" id="F9A-sC-3PN"/>
                                     <constraint firstAttribute="trailing" secondItem="Ro5-ZJ-RWU" secondAttribute="trailing" constant="16" id="sYs-HM-8OY"/>
                                     <constraint firstItem="Soh-7y-JRH" firstAttribute="leading" secondItem="3eR-Rn-XpZ" secondAttribute="leading" constant="16" id="vBH-s0-i7p"/>
                                 </constraints>
@@ -66,7 +66,7 @@
                                 </connections>
                             </view>
                             <label hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Unavailable" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf0-db-esM" userLabel="Camera Unavailable">
-                                <rect key="frame" x="80.5" y="319" width="214" height="29"/>
+                                <rect key="frame" x="81" y="319" width="214" height="29"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,11 +91,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-6P-mHF" userLabel="Shot Picture">
-                                <rect key="frame" x="147.5" y="567" width="80" height="80"/>
+                                <rect key="frame" x="153" y="587" width="70" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ewm-Tn-vvz"/>
-                                    <constraint firstAttribute="width" constant="80" id="zPe-0L-ZYb"/>
+                                    <constraint firstAttribute="height" constant="70" id="ewm-Tn-vvz"/>
+                                    <constraint firstAttribute="width" constant="70" id="zPe-0L-ZYb"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="Camera">
@@ -116,7 +116,6 @@
                         <constraints>
                             <constraint firstItem="3eR-Rn-XpZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="125-kC-WZF"/>
                             <constraint firstItem="uCj-6P-mHF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1l3-Q5-JWf"/>
-                            <constraint firstItem="uCj-6P-mHF" firstAttribute="top" secondItem="3eR-Rn-XpZ" secondAttribute="bottom" constant="-100" id="6Wx-JY-ltE"/>
                             <constraint firstItem="FZr-Ip-7WL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CVN-7J-Bw1"/>
                             <constraint firstItem="3eR-Rn-XpZ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="Ice-47-M9N"/>
                             <constraint firstItem="zf0-db-esM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ris-mI-8lA"/>
@@ -124,6 +123,7 @@
                             <constraint firstItem="3eR-Rn-XpZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="igk-MQ-CGt"/>
                             <constraint firstItem="FZr-Ip-7WL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nqt-Vj-aVF"/>
                             <constraint firstItem="3eR-Rn-XpZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="pSC-xP-dl0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uCj-6P-mHF" secondAttribute="bottom" constant="10" id="zQx-YM-3CT"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -180,7 +180,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="8Au-Qu-l05" secondAttribute="bottom" id="6T7-1W-ArO"/>
@@ -191,7 +191,7 @@
                                     <constraint firstItem="8Au-Qu-l05" firstAttribute="centerX" secondItem="hbQ-5h-T5r" secondAttribute="centerX" placeholder="YES" id="xqw-b8-i9z"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNc-Tg-qVe" userLabel="Delete">
                                 <rect key="frame" x="157" y="467" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="6Fl-X8-xGc"/>
@@ -214,14 +214,13 @@
                                     <action selector="goBack:" destination="mr6-px-sgL" eventType="touchUpInside" id="YFA-8A-T9s"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7f-KO-Ztf" userLabel="V">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7f-KO-Ztf" userLabel="V">
                                 <rect key="frame" x="158" y="597" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ld1-GD-jxO"/>
                                     <constraint firstAttribute="width" constant="60" id="vW7-tk-w5X"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="+">
+                                <state key="normal" image="Download">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -264,6 +263,7 @@
                         <outlet property="photoScrollView" destination="hbQ-5h-T5r" id="91Q-Ob-kc4"/>
                         <outlet property="photoView" destination="Mnt-Iq-RXK" id="PKs-Qr-Vy2"/>
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
+                        <outlet property="saveImageButton" destination="i7f-KO-Ztf" id="c8j-NK-WLp"/>
                         <outlet property="scrollViewBottomConstraint" destination="cKt-KI-idU" id="oFh-Ce-95x"/>
                         <outlet property="stickersButton" destination="3Df-cP-CXT" id="Wgk-Us-nnY"/>
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
@@ -340,6 +340,7 @@
         <image name="Back" width="199" height="198"/>
         <image name="Camera" width="170" height="170"/>
         <image name="Cancel" width="170" height="170"/>
+        <image name="Download" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
         <image name="Stickers" width="170" height="170"/>
         <image name="Trash" width="170" height="170"/>

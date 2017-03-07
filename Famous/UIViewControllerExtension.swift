@@ -12,11 +12,26 @@ import Foundation
 extension UIViewController {
     
     func addBlur(to view: UIView) {
-        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(blurEffectView, at: 0)
+    }
+    
+    func updateBlurConstraints(for view: UIView) {
+        let blurEffectView = view.subviews[0]
+        blurEffectView.frame = view.bounds
+    }
+    
+    func imageForScreen(_ image: UIImage) -> UIImage {
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        image.draw(in: self.view.bounds)
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return scaledImage!
     }
     
     func addShadow(_ button: UIView) {

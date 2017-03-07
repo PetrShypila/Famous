@@ -13,6 +13,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     private var initialLayout = true
     
     var photo: UIImage!
+    
     var viewIntersectionStorage = [Int: Bool]()
     var viewTransformStorage = [Int: CGAffineTransform]()
     
@@ -21,6 +22,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var photoScrollView: UIScrollView!
     @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var saveImageButton: UIButton!
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -60,7 +62,13 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             
             addShadow(self.photoScrollView)
             addShadow(self.cancelButton)
+            addShadow(self.saveImageButton)
             addShadow(self.stickersButton)
+            
+            addBlur(to: self.photoScrollView)
+            
+            let backgroundPhoto = imageForScreen(self.photo)
+            self.photoScrollView.backgroundColor = UIColor(patternImage: backgroundPhoto)
             
         } else {
             print("Photo not set")
@@ -89,7 +97,12 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateBlurConstraints(for: scrollView)
+    }
+    
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateBlurConstraints(for: scrollView)
         updateConstraintsFor(size: scrollView.frame.size)
     }
     

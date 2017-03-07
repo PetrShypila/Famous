@@ -12,6 +12,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     private let ROW_HEIGHT = CGFloat(100.0)
     private let STICKERS_BUNDLE = "stickers.bundle"
     private let STICKERS_PER_ROW = 2
+    private let cellSpacingHeight = CGFloat(20)
+    
     private var stickerViews: [UIImage]!
     
     weak var delegate: EditImageViewController!
@@ -47,10 +49,13 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.stickersTableView.backgroundView = UIImageView(image: backgroundImage)
         self.stickerViews = loadStickersImages(from: STICKERS_BUNDLE)
+        self.stickersTableView.backgroundColor = UIColor.clear
         
-        addBlur(to: self.stickersTableView)
+        let background = imageForScreen(self.backgroundImage)
+        self.view.backgroundColor = UIColor(patternImage: background)
+        
+        addBlur(to: self.view)
         addShadow(self.backButton)
     }
 
@@ -59,8 +64,23 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.stickerViews.count
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellSpacingHeight
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return stickerViews.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,7 +88,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         let cell = UITableViewCell()
         cell.backgroundColor = UIColor.clear
         cell.frame.size.height = cell.frame.size.height * 3
-        let startIdx = indexPath.row * STICKERS_PER_ROW
+        let startIdx = indexPath.section * STICKERS_PER_ROW
         let endIdx = min(startIdx+STICKERS_PER_ROW, stickerViews.count)
         
         if startIdx < endIdx {
