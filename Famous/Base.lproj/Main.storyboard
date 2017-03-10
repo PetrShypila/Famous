@@ -168,14 +168,24 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-Iq-RXK">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="587"/>
                                             </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhk-al-ILw" userLabel="Watermark">
+                                                <rect key="frame" x="0.0" y="437" width="50" height="150"/>
+                                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="Qr3-rl-auC"/>
+                                                    <constraint firstAttribute="width" constant="50" id="Zdf-cs-43l"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="top" secondItem="8Au-Qu-l05" secondAttribute="top" id="QhA-VE-qb2"/>
                                             <constraint firstAttribute="bottom" secondItem="Mnt-Iq-RXK" secondAttribute="bottom" id="XpZ-3e-IKf"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="centerX" secondItem="8Au-Qu-l05" secondAttribute="centerX" placeholder="YES" id="c3N-wH-W0E"/>
+                                            <constraint firstAttribute="bottom" secondItem="rhk-al-ILw" secondAttribute="bottom" id="cv3-iz-biL"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="centerY" secondItem="8Au-Qu-l05" secondAttribute="centerY" placeholder="YES" id="grk-C2-Dig"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="leading" secondItem="8Au-Qu-l05" secondAttribute="leading" id="ksl-eK-01R"/>
+                                            <constraint firstItem="rhk-al-ILw" firstAttribute="leading" secondItem="8Au-Qu-l05" secondAttribute="leading" id="wM1-kw-tbU"/>
                                             <constraint firstAttribute="trailing" secondItem="Mnt-Iq-RXK" secondAttribute="trailing" id="xyO-q4-D9J"/>
                                         </constraints>
                                     </view>
@@ -269,6 +279,9 @@
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
                         <outlet property="trashBinBottomConstraint" destination="R3O-My-7su" id="CFa-c3-DCi"/>
+                        <outlet property="watermark" destination="rhk-al-ILw" id="lR1-gl-ANu"/>
+                        <outlet property="watermarkHeight" destination="Qr3-rl-auC" id="Nar-t0-XSg"/>
+                        <outlet property="watermarkWidth" destination="Zdf-cs-43l" id="12e-vt-bWq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5YZ-1z-GEq" userLabel="First Responder" sceneMemberID="firstResponder"/>

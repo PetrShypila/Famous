@@ -17,6 +17,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     var viewIntersectionStorage = [Int: Bool]()
     var viewTransformStorage = [Int: CGAffineTransform]()
     
+    @IBOutlet weak var watermark: UIImageView!
     @IBOutlet weak var stickersButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var photoScrollView: UIScrollView!
@@ -24,6 +25,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var saveImageButton: UIButton!
     
+    @IBOutlet weak var watermarkWidth: NSLayoutConstraint!
+    @IBOutlet weak var watermarkHeight: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var trashBinBottomConstraint: NSLayoutConstraint!
@@ -41,8 +44,10 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         showAlertMsg(title: "Saved!")
         
         UIGraphicsBeginImageContext(self.placeholderView.frame.size)
+        self.watermark.isHidden = false
         self.placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
+        self.watermark.isHidden = true
         UIGraphicsEndImageContext()
         self.photoScrollView.zoomScale = zoomVal
         //Save it to the camera roll
@@ -87,6 +92,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         if self.initialLayout == true {
             updateMinZoomScaleForSize(view.bounds.size)
+            updateWatermarkSize()
         }
         
         self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
@@ -151,6 +157,12 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         newSticker.frame.size = CGSize(width: imageViewWidth, height: imageViewHeight)
         
         return newSticker
+    }
+    
+    private func updateWatermarkSize() {
+        self.watermark.image = UIImage(contentsOfFile: "imgs/watermark.png")
+        self.watermarkWidth.constant = self.photo.size.width / 10
+        self.watermarkHeight.constant = self.watermarkWidth.constant * 4
     }
     
     override var prefersStatusBarHidden: Bool {

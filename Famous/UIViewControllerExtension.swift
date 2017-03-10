@@ -81,7 +81,7 @@ extension UIViewController {
         
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         
-        alertController.view.subviews.first!.alpha = 0.3
+        alertController.view.subviews.first!.alpha = 1.0
         
         self.present(alertController, animated: true, completion: nil)
         
