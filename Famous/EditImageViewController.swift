@@ -38,6 +38,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         let zoomVal = self.photoScrollView.zoomScale
         self.photoScrollView.zoomScale = 1.0
         
+        showAlertMsg(title: "Saved!")
+        
         UIGraphicsBeginImageContext(self.placeholderView.frame.size)
         self.placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
@@ -45,7 +47,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         self.photoScrollView.zoomScale = zoomVal
         //Save it to the camera roll
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-
+        
     }
     
     @IBAction func goBack(_ sender: Any) {

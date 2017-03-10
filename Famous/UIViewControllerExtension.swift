@@ -76,4 +76,19 @@ extension UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    func showAlertMsg(title: String){
+        
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        alertController.view.subviews.first!.alpha = 0.3
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        let delay = DispatchTime.now() + .seconds(1)
+        
+        DispatchQueue.main.asyncAfter(deadline: delay, execute: {
+            alertController.dismiss(animated: true, completion: nil)
+        })
+    }
 }
