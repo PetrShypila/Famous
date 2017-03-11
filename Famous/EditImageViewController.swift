@@ -18,6 +18,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     var viewTransformStorage = [Int: CGAffineTransform]()
     
     @IBOutlet weak var watermark: UIImageView!
+    @IBOutlet weak var watermarkWrapper: UIView!
     @IBOutlet weak var stickersButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var photoScrollView: UIScrollView!
@@ -27,6 +28,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     @IBOutlet weak var watermarkWidth: NSLayoutConstraint!
     @IBOutlet weak var watermarkHeight: NSLayoutConstraint!
+    @IBOutlet weak var watermarkBottomPadding: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var trashBinBottomConstraint: NSLayoutConstraint!
@@ -37,17 +39,17 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     @IBAction func saveImage(_ sender: Any) {
         
+        showAlertMsg(title: "Saved")
+        
         //Create the UIImage
         let zoomVal = self.photoScrollView.zoomScale
         self.photoScrollView.zoomScale = 1.0
         
-        showAlertMsg(title: "Saved!")
-        
         UIGraphicsBeginImageContext(self.placeholderView.frame.size)
-        self.watermark.isHidden = false
+        self.watermarkWrapper.isHidden = false
         self.placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
-        self.watermark.isHidden = true
+        self.watermarkWrapper.isHidden = true
         UIGraphicsEndImageContext()
         self.photoScrollView.zoomScale = zoomVal
         //Save it to the camera roll
@@ -73,6 +75,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             addShadow(self.stickersButton)
             
             addBlur(to: self.photoScrollView)
+            addBlur(to: self.watermarkWrapper)
             
             let backgroundPhoto = imageForScreen(self.photo)
             self.photoScrollView.backgroundColor = UIColor(patternImage: backgroundPhoto)
@@ -92,7 +95,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         if self.initialLayout == true {
             updateMinZoomScaleForSize(view.bounds.size)
-            updateWatermarkSize()
+            updateWatermarkView()
         }
         
         self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
@@ -159,10 +162,22 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         return newSticker
     }
     
-    private func updateWatermarkSize() {
-        self.watermark.image = UIImage(contentsOfFile: "imgs/watermark.png")
-        self.watermarkWidth.constant = self.photo.size.width / 10
-        self.watermarkHeight.constant = self.watermarkWidth.constant * 4
+    private func updateWatermarkView() {
+        self.watermark.image = UIImage(named: "ui.bundle/watermark.png")
+        self.watermark.contentMode = .scaleAspectFit
+        self.watermarkWidth.constant = self.photo.size.width / 12
+        self.watermarkHeight.constant = self.watermarkWidth.constant * 5
+        
+        if isPortrait(image: self.photo) {
+            let bottomPadding = self.watermarkHeight.constant / 8
+            self.watermarkHeight.constant += bottomPadding
+            self.watermarkBottomPadding.constant += bottomPadding
+        }
+        
+    }
+    
+    private func isPortrait(image: UIImage) -> Bool {
+        return image.size.width < image.size.height
     }
     
     override var prefersStatusBarHidden: Bool {

@@ -168,24 +168,34 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-Iq-RXK">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="587"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhk-al-ILw" userLabel="Watermark">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbC-7k-Tti" userLabel="Wrapper">
                                                 <rect key="frame" x="0.0" y="437" width="50" height="150"/>
-                                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhk-al-ILw" userLabel="Watermark">
+                                                        <rect key="frame" x="0.0" y="20" width="50" height="110"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="Qr3-rl-auC"/>
-                                                    <constraint firstAttribute="width" constant="50" id="Zdf-cs-43l"/>
+                                                    <constraint firstItem="rhk-al-ILw" firstAttribute="leading" secondItem="hbC-7k-Tti" secondAttribute="leading" id="A16-hu-t61"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rhk-al-ILw" secondAttribute="trailing" id="KNq-X0-7Ib"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rhk-al-ILw" secondAttribute="bottom" constant="20" id="eGf-kY-rgy"/>
+                                                    <constraint firstAttribute="height" constant="150" id="n4u-fb-GDi"/>
+                                                    <constraint firstItem="rhk-al-ILw" firstAttribute="top" secondItem="hbC-7k-Tti" secondAttribute="top" constant="20" id="w6W-CA-3eF"/>
+                                                    <constraint firstAttribute="width" constant="50" id="zSK-Xz-Oe3"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="hbC-7k-Tti" firstAttribute="leading" secondItem="8Au-Qu-l05" secondAttribute="leading" id="G5z-Ut-0yE"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="top" secondItem="8Au-Qu-l05" secondAttribute="top" id="QhA-VE-qb2"/>
+                                            <constraint firstAttribute="bottom" secondItem="hbC-7k-Tti" secondAttribute="bottom" id="Rmv-xv-4Mf"/>
                                             <constraint firstAttribute="bottom" secondItem="Mnt-Iq-RXK" secondAttribute="bottom" id="XpZ-3e-IKf"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="centerX" secondItem="8Au-Qu-l05" secondAttribute="centerX" placeholder="YES" id="c3N-wH-W0E"/>
-                                            <constraint firstAttribute="bottom" secondItem="rhk-al-ILw" secondAttribute="bottom" id="cv3-iz-biL"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="centerY" secondItem="8Au-Qu-l05" secondAttribute="centerY" placeholder="YES" id="grk-C2-Dig"/>
                                             <constraint firstItem="Mnt-Iq-RXK" firstAttribute="leading" secondItem="8Au-Qu-l05" secondAttribute="leading" id="ksl-eK-01R"/>
-                                            <constraint firstItem="rhk-al-ILw" firstAttribute="leading" secondItem="8Au-Qu-l05" secondAttribute="leading" id="wM1-kw-tbU"/>
                                             <constraint firstAttribute="trailing" secondItem="Mnt-Iq-RXK" secondAttribute="trailing" id="xyO-q4-D9J"/>
                                         </constraints>
                                     </view>
@@ -279,9 +289,11 @@
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
                         <outlet property="trashBinBottomConstraint" destination="R3O-My-7su" id="CFa-c3-DCi"/>
-                        <outlet property="watermark" destination="rhk-al-ILw" id="lR1-gl-ANu"/>
-                        <outlet property="watermarkHeight" destination="Qr3-rl-auC" id="Nar-t0-XSg"/>
-                        <outlet property="watermarkWidth" destination="Zdf-cs-43l" id="12e-vt-bWq"/>
+                        <outlet property="watermark" destination="rhk-al-ILw" id="A5N-Y3-Mlv"/>
+                        <outlet property="watermarkBottomPadding" destination="eGf-kY-rgy" id="X7f-k2-s3p"/>
+                        <outlet property="watermarkHeight" destination="n4u-fb-GDi" id="jtw-Eh-c8n"/>
+                        <outlet property="watermarkWidth" destination="zSK-Xz-Oe3" id="76G-bZ-vui"/>
+                        <outlet property="watermarkWrapper" destination="hbC-7k-Tti" id="ITf-Se-bek"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5YZ-1z-GEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
