@@ -11,6 +11,18 @@ import Foundation
 
 extension UIViewController {
     
+    func sendScreenAnalytics(screen name: String, sessionQueue: DispatchQueue) {
+        sessionQueue.async {
+            
+            if let tracker = GAI.sharedInstance().defaultTracker {
+                tracker.set(kGAIDescription, value: name)
+                
+                let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
+                tracker.send(eventTracker as! [NSObject : AnyObject])
+            }
+        }
+    }
+    
     func addBlur(to view: UIView) {
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

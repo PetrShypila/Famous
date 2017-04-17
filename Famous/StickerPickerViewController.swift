@@ -13,6 +13,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     private let STICKERS_BUNDLE = "stickers.bundle"
     private let STICKERS_PER_ROW = 2
     private let cellSpacingHeight = CGFloat(20)
+    private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
     
     private var stickerViews: [UIImage]!
     
@@ -132,6 +133,9 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        sendScreenAnalytics(screen: "StickerPickerViewController", sessionQueue: self.sessionQueue)
+        
         stickersTableView.rowHeight = ROW_HEIGHT
     }
     

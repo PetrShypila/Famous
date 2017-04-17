@@ -335,6 +335,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 }
             }
         }
+        
+        sendScreenAnalytics(screen: "CameraViewController", sessionQueue: self.sessionQueue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -459,8 +461,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                         let creationRequest = PHAssetCreationRequest.forAsset()
                         creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
                     }, completionHandler: { success, error in
-                        if !success {
-                            print("Could not save movie to photo library: \(error)")
+                        if let unwrapped = error, !success {
+                            print("Could not save movie to photo library: \(unwrapped)")
                         }
                         cleanup()
                     }

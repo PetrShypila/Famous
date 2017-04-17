@@ -37,8 +37,8 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
             photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
             
             completed(self)
-        } else {
-            print("Error capturing photo: \(error)")
+        } else if let unwrapped = error {
+            print("Error capturing photo: \(unwrapped)")
             return
         }
     }

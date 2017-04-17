@@ -34,6 +34,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var trashBinBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
+    private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)    
 
     @IBOutlet weak var trashBin: UIButton!
     
@@ -83,6 +84,12 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         } else {
             print("Photo not set")
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        sendScreenAnalytics(screen: "EditImageViewController", sessionQueue: self.sessionQueue)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -181,6 +188,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     }
     
     override var prefersStatusBarHidden: Bool {
+        
         return true
     }
 }
