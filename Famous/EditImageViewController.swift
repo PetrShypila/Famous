@@ -39,6 +39,9 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var trashBin: UIButton!
     
     @IBAction func saveImage(_ sender: Any) {
+        sendEventAnalytics(event: joinArrStrings(stickers: placeholderView.subviews),
+                           type: GAIActions.PRESS_BUTTON,
+                           sessionQueue: self.sessionQueue)
         
         showAlertMsg(title: "Saved")
         
@@ -59,6 +62,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     }
     
     @IBAction func goBack(_ sender: Any) {
+        sendEventAnalytics(event: "back-to-camera", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+        
         performSegueToReturnBack()
     }
     
@@ -88,8 +93,6 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        sendScreenAnalytics(screen: "EditImageViewController", sessionQueue: self.sessionQueue)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -185,6 +188,21 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     
     private func isPortrait(image: UIImage) -> Bool {
         return image.size.width < image.size.height
+    }
+    
+    private func joinArrStrings(stickers: [UIView]!) -> String! {
+        var sticker_names = [String]()
+        
+        for s in stickers {
+            if let stickerView = s as? UIImageView {
+                
+                if let imageName = stickerView.image?.accessibilityIdentifier {
+                    sticker_names.append(imageName)
+                }
+            }
+        }
+        
+        return sticker_names.joined(separator: ":")
     }
     
     override var prefersStatusBarHidden: Bool {

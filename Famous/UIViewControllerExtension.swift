@@ -15,12 +15,24 @@ extension UIViewController {
         sessionQueue.async {
             
             if let tracker = GAI.sharedInstance().defaultTracker {
-                tracker.set(kGAIDescription, value: name)
+                tracker.set(kGAIScreenName, value: name)
                 
                 let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-                tracker.send(eventTracker as! [NSObject : AnyObject])
+                tracker.send(eventTracker as! [AnyHashable : Any])
             }
         }
+    }
+    
+    func sendEventAnalytics(event name: String!, type: GAIActions!, sessionQueue: DispatchQueue!) {
+        
+        sessionQueue.async {
+            if let tracker = GAI.sharedInstance().defaultTracker {
+                tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action", action: type.rawValue,
+                                                              label: name, value: nil).build() as! [AnyHashable : Any])
+                
+            }
+        }
+        
     }
     
     func addBlur(to view: UIView) {

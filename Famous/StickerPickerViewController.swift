@@ -24,6 +24,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var backButton: UIButton!
     
     @IBAction func performBack(_ sender: Any) {
+        self.sendEventAnalytics(event: "back-from-stickers", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+        
         performSegueToReturnBack()
     }
     
@@ -40,6 +42,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         for img in contents {
             if let sticker = UIImage(named: "\(boundle)/\(img.lastPathComponent)") {
+                sticker.accessibilityIdentifier = img.lastPathComponent
                 stickers.append(sticker)
             }
         }
@@ -125,6 +128,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         if let targetView = sender.view as? UIImageView {
             if let sticker = targetView.image {
                 
+                self.sendEventAnalytics(event: sticker.accessibilityIdentifier!, type: GAIActions.ADD_STICKER, sessionQueue: self.sessionQueue)
+                
                 delegate.addStciker(sticker, size: targetView.frame.size, to: delegate.placeholderView)
                 performSegueToReturnBack()
             }
@@ -133,8 +138,6 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        sendScreenAnalytics(screen: "StickerPickerViewController", sessionQueue: self.sessionQueue)
         
         stickersTableView.rowHeight = ROW_HEIGHT
     }

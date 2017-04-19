@@ -42,6 +42,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     @IBAction func pickFromCameraRoll(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            
+            self.sendEventAnalytics(event: "camera-roll", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+            
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
@@ -53,6 +56,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     @IBAction private func capturePhoto() {
+        
+        self.sendEventAnalytics(event: "capture-photo", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+        
         /*
          Retrieve the video preview layer's video orientation on the main queue before
          entering the session queue. We do this to ensure UI elements are accessed on
@@ -117,6 +123,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     @IBAction private func changeCamera(_ cameraButton: UIButton) {
+        
+        self.sendEventAnalytics(event: "flip-camera", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+        
         cameraRollButton.isUserInteractionEnabled = false
         flipButton.isUserInteractionEnabled = false
         photoButton.isEnabled = false
@@ -335,11 +344,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 }
             }
         }
-        
-        sendScreenAnalytics(screen: "CameraViewController", sessionQueue: self.sessionQueue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         sessionQueue.async { [unowned self] in
             if self.setupResult == .success {
                 self.session.stopRunning()
