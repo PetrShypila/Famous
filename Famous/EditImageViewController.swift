@@ -39,11 +39,9 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var trashBin: UIButton!
     
     @IBAction func saveImage(_ sender: Any) {
-        sendEventAnalytics(event: joinArrStrings(stickers: placeholderView.subviews),
-                           type: GAIActions.PRESS_BUTTON,
-                           sessionQueue: self.sessionQueue)
-        
         showAlertMsg(title: "Saved")
+        
+        sendSavedStickers(stickers: placeholderView.subviews)
         
         //Create the UIImage
         let zoomVal = self.photoScrollView.zoomScale
@@ -190,19 +188,16 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         return image.size.width < image.size.height
     }
     
-    private func joinArrStrings(stickers: [UIView]!) -> String! {
-        var sticker_names = [String]()
+    private func sendSavedStickers(stickers: [UIView]!) {
         
         for s in stickers {
             if let stickerView = s as? UIImageView {
                 
                 if let imageName = stickerView.image?.accessibilityIdentifier {
-                    sticker_names.append(imageName)
+                    sendEventAnalytics(event: imageName, type: GAIActions.SAVE_STICKER, sessionQueue: self.sessionQueue)
                 }
             }
         }
-        
-        return sticker_names.joined(separator: ":")
     }
     
     override var prefersStatusBarHidden: Bool {

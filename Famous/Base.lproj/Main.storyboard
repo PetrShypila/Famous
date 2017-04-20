@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,12 +52,21 @@
                                             <action selector="changeCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pbu-7V-MSf"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="vA9-O6-2W8">
+                                        <rect key="frame" x="54" y="18" width="258" height="57"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="57" id="Pg3-fp-9n8"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ro5-ZJ-RWU" secondAttribute="bottom" constant="15" id="E91-ZA-qPj"/>
                                     <constraint firstAttribute="bottom" secondItem="Soh-7y-JRH" secondAttribute="bottom" constant="15" id="F9A-sC-3PN"/>
+                                    <constraint firstItem="vA9-O6-2W8" firstAttribute="top" secondItem="3eR-Rn-XpZ" secondAttribute="topMargin" constant="10" id="Nbp-88-Qct"/>
+                                    <constraint firstItem="vA9-O6-2W8" firstAttribute="centerX" secondItem="3eR-Rn-XpZ" secondAttribute="centerX" constant="-4.5" id="YM2-6R-i60"/>
+                                    <constraint firstItem="vA9-O6-2W8" firstAttribute="leading" secondItem="3eR-Rn-XpZ" secondAttribute="leading" constant="54" id="o9s-hQ-dD9"/>
                                     <constraint firstAttribute="trailing" secondItem="Ro5-ZJ-RWU" secondAttribute="trailing" constant="16" id="sYs-HM-8OY"/>
                                     <constraint firstItem="Soh-7y-JRH" firstAttribute="leading" secondItem="3eR-Rn-XpZ" secondAttribute="leading" constant="16" id="vBH-s0-i7p"/>
                                 </constraints>
@@ -145,7 +154,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1782" y="-627"/>
+            <point key="canvasLocation" x="-1783.2" y="-627.4362818590705"/>
         </scene>
         <!--Edit Image View Controller-->
         <scene sceneID="Sd9-na-Xtm">
@@ -367,6 +376,7 @@
         <image name="Cancel" width="170" height="170"/>
         <image name="Download" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
+        <image name="Logo" width="369" height="93"/>
         <image name="Stickers" width="170" height="170"/>
         <image name="Trash" width="170" height="170"/>
     </resources>

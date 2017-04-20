@@ -10,4 +10,5 @@ enum GAIActions:String {
     case PRESS_BUTTON = "press-button"
     case ADD_STICKER = "add-sticker"
     case REMOVE_STICKER = "remove-sticker"
+    case SAVE_STICKER = "save-sticker"
 }
