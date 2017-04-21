@@ -10,5 +10,6 @@
 #define Famous_Bridging_Header_h
 
 #import <Google/Analytics.h>
+#import <JPSVolumeButtonHandler/JPSVolumeButtonHandler.h>
 
 #endif /* Famous_Bridging_Header_h */

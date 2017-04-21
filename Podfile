@@ -7,4 +7,6 @@ target 'Famous' do
 
   # Pods for Famous
   pod 'Google/Analytics'
+  pod 'JPSVolumeButtonHandler'
+  
 end

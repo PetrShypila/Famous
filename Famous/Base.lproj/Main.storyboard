@@ -52,7 +52,7 @@
                                             <action selector="changeCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pbu-7V-MSf"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Pink" translatesAutoresizingMaskIntoConstraints="NO" id="vA9-O6-2W8">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Red" translatesAutoresizingMaskIntoConstraints="NO" id="vA9-O6-2W8">
                                         <rect key="frame" x="54" y="18" width="258" height="57"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="57" id="Pg3-fp-9n8"/>
@@ -376,7 +376,7 @@
         <image name="Cancel" width="170" height="170"/>
         <image name="Download" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
-        <image name="Logo-Pink" width="369" height="93"/>
+        <image name="Logo-Red" width="369" height="93"/>
         <image name="Stickers" width="170" height="170"/>
         <image name="Trash" width="170" height="170"/>
     </resources>

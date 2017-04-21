@@ -5,8 +5,8 @@
 //  Created by Petr Shypila on 13/02/2017.
 //  Copyright © 2017 Petr Shypila. All rights reserved.
 //
-
 import UIKit
+import Darwin
 
 class StickerPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let ROW_HEIGHT = CGFloat(100.0)
@@ -78,7 +78,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return stickerViews.count
+        return stickerViews.count/2 + stickerViews.count % 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -7,8 +7,10 @@
  */
 
 import UIKit
-import AVFoundation
 import Photos
+import MediaPlayer
+import AVFoundation
+import JPSVolumeButtonHandler
 
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -18,13 +20,14 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     @IBOutlet private weak var flipButton: UIButton!
     @IBOutlet private weak var previewView: PreviewView!
     @IBOutlet private weak var cameraUnavailableLabel: UILabel!
-        
+    
     private let session = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
     private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
     private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera], mediaType: AVMediaTypeVideo, position: .unspecified)!
     private var photo: UIImage?
     private var isSessionRunning = false
+    private var volumeHandler: JPSVolumeButtonHandler?
     private var sessionRunningObserveContext = 0
     private var inProgressLivePhotoCapturesCount = 0
     private var videoDeviceInput: AVCaptureDeviceInput!
@@ -242,6 +245,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.volumeHandler = JPSVolumeButtonHandler(up: {self.capturePhoto()}, downBlock: {self.capturePhoto()})
         
         // Disable UI. The UI is enabled if and only if the session starts running.
         self.photoButton.isEnabled = false
@@ -526,8 +531,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.cameraRollButton.isUserInteractionEnabled = isSessionRunning
                 self.photoButton.isEnabled = isSessionRunning
             }
-        }
-        else {
+        } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
