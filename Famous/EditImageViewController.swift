@@ -49,6 +49,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         UIGraphicsBeginImageContext(self.placeholderView.frame.size)
         self.watermarkWrapper.isHidden = false
+        self.placeholderView.bringSubview(toFront: watermarkWrapper)
         self.placeholderView.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         self.watermarkWrapper.isHidden = true

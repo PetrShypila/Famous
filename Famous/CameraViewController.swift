@@ -246,6 +246,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateImageToLastPhoto(self.cameraRollButton)
+        
         self.volumeHandler = JPSVolumeButtonHandler(up: {self.capturePhoto()}, downBlock: {self.capturePhoto()})
         
         // Disable UI. The UI is enabled if and only if the session starts running.
@@ -316,8 +318,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        updateImageToLastPhoto(self.cameraRollButton)
         
         sessionQueue.async {
             switch self.setupResult {
