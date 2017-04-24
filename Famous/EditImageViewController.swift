@@ -39,9 +39,20 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var trashBin: UIButton!
     
     @IBAction func saveImage(_ sender: Any) {
-        showAlertMsg(title: "Saved")
+        //showAlertMsg(title: "Saved")
         
         sendSavedStickers(stickers: placeholderView.subviews)
+        
+        //Create the UIImage
+        let image = buildPhoto()
+        
+        //Save it to the camera roll
+        //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: image, instagramCaption: "Test text", view: self.view, vc: self)
+    }
+    
+    private func buildPhoto() -> UIImage {
         
         //Create the UIImage
         let zoomVal = self.photoScrollView.zoomScale
@@ -55,9 +66,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         self.watermarkWrapper.isHidden = true
         UIGraphicsEndImageContext()
         self.photoScrollView.zoomScale = zoomVal
-        //Save it to the camera roll
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
+        return image
     }
     
     @IBAction func goBack(_ sender: Any) {
