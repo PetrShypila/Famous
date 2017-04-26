@@ -25,6 +25,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var saveImageButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     @IBOutlet weak var watermarkWidth: NSLayoutConstraint!
     @IBOutlet weak var watermarkHeight: NSLayoutConstraint!
@@ -39,20 +40,40 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     @IBOutlet weak var trashBin: UIButton!
     
     @IBAction func saveImage(_ sender: Any) {
-        //showAlertMsg(title: "Saved")
+        showAlertMsg(title: "Saved")
         
-        sendSavedStickers(stickers: placeholderView.subviews)
+        sessionQueue.async {
+            self.sendEventAnalytics(event: "save-image", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+            
+            //Create the UIImage
+            let image = self.buildPhoto()
+            
+            //Save it to the camera roll
+            self.saveToCameraRoll(image: image)
+        }
+    }
+    
+    @IBAction func shareImage(_ sender: Any) {
+        sessionQueue.async {
+            self.sendEventAnalytics(event: "share-image", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
+            
+            //Create the UIImage
+            let image = self.buildPhoto()
+            
+            let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+            self.present(vc, animated: true)
+        }
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        sendEventAnalytics(event: "back-to-camera", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
         
-        //Create the UIImage
-        let image = buildPhoto()
-        
-        //Save it to the camera roll
-        //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        
-        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: image, instagramCaption: "Test text", view: self.view, vc: self)
+        performSegueToReturnBack()
     }
     
     private func buildPhoto() -> UIImage {
+        
+        sendSavedStickers(stickers: placeholderView.subviews)
         
         //Create the UIImage
         let zoomVal = self.photoScrollView.zoomScale
@@ -70,12 +91,6 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         return image
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        sendEventAnalytics(event: "back-to-camera", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
-        
-        performSegueToReturnBack()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,13 +99,9 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             self.placeholderView.clipsToBounds = true
             self.photoScrollView.delegate = self
             
-            addShadow(self.photoScrollView)
-            addShadow(self.cancelButton)
-            addShadow(self.saveImageButton)
-            addShadow(self.stickersButton)
             
-            addBlur(to: self.photoScrollView)
-            addBlur(to: self.watermarkWrapper)
+            addShadow(to: [self.cancelButton, self.saveImageButton, self.stickersButton, self.shareButton])
+            addBlur(to: [self.photoScrollView, self.watermarkWrapper])
             
             let backgroundPhoto = imageForScreen(self.photo)
             self.photoScrollView.backgroundColor = UIColor(patternImage: backgroundPhoto)
@@ -193,6 +204,11 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
             self.watermarkBottomPadding.constant += bottomPadding
         }
         
+    }
+    
+    private func saveToCameraRoll(image: UIImage!) {
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     private func isPortrait(image: UIImage) -> Bool {

@@ -59,8 +59,8 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         let background = imageForScreen(self.backgroundImage)
         self.view.backgroundColor = UIColor(patternImage: background)
         
-        addBlur(to: self.view)
-        addShadow(self.backButton)
+        addBlur(to: [self.view])
+        addShadow(to: [self.backButton])
     }
 
     override func didReceiveMemoryWarning() {

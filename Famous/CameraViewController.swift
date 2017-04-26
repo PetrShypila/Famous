@@ -263,8 +263,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         self.cameraRollButton.layer.cornerRadius = self.cameraRollButton.bounds.size.width / 10.0
         self.cameraRollButton.isUserInteractionEnabled = false
         
-        addShadow(self.cameraRollButton)
-        addShadow(self.photoButton)
+        addShadow(to: [self.cameraRollButton, self.photoButton])
         
         // Set up the video preview view.
         self.previewView.session = session

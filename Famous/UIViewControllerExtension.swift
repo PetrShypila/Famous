@@ -35,12 +35,14 @@ extension UIViewController {
         
     }
     
-    func addBlur(to view: UIView) {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(blurEffectView, at: 0)
+    func addBlur(to views: [UIView]) {
+        for view in views {
+            let blurEffect = UIBlurEffect(style: .light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.insertSubview(blurEffectView, at: 0)
+        }
     }
     
     func updateBlurConstraints(for view: UIView) {
@@ -58,11 +60,13 @@ extension UIViewController {
         return scaledImage!
     }
     
-    func addShadow(_ button: UIView) {
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+    func addShadow(to buttons: [UIView]) {
+        for button in buttons {
+            button.layer.shadowRadius = 5
+            button.layer.shadowOpacity = 0.5
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        }
     }
     
     func updateImageToLastPhoto(_ rollButton: UIButton) {

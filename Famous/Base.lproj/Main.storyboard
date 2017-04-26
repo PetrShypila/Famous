@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -231,7 +231,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eV-Ve-ReW" userLabel="X">
-                                <rect key="frame" x="32" y="565" width="40" height="40"/>
+                                <rect key="frame" x="16" y="565" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Oo0-IK-PhM"/>
                                     <constraint firstAttribute="width" constant="40" id="Z8b-B7-hRk"/>
@@ -256,6 +256,17 @@
                                     <action selector="saveImage:" destination="mr6-px-sgL" eventType="touchUpInside" id="7c0-ep-3Z0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZ4-38-xLY" userLabel="Share">
+                                <rect key="frame" x="319" y="477" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="8vo-YL-7P5"/>
+                                    <constraint firstAttribute="height" constant="40" id="Esp-uZ-eQ9"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Share-Red"/>
+                                <connections>
+                                    <action selector="shareImage:" destination="mr6-px-sgL" eventType="touchUpInside" id="lw4-hH-EzK"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-cP-CXT">
                                 <rect key="frame" x="289" y="555" width="60" height="60"/>
                                 <constraints>
@@ -274,12 +285,14 @@
                         <constraints>
                             <constraint firstItem="hbQ-5h-T5r" firstAttribute="top" secondItem="IeE-Lu-e6i" secondAttribute="top" id="4nT-gE-5fw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3Df-cP-CXT" secondAttribute="trailing" constant="10" id="8nm-LD-mFC"/>
+                            <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="jZ4-38-xLY" secondAttribute="bottom" constant="150" id="Ee7-J9-tel"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="3Df-cP-CXT" secondAttribute="bottom" constant="52" id="JQb-z9-3g1"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="3eV-Ve-ReW" secondAttribute="bottom" constant="62" id="KaD-aH-x4N"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="i7f-KO-Ztf" secondAttribute="bottom" constant="10" id="Onl-e7-Fzl"/>
                             <constraint firstItem="hbQ-5h-T5r" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leading" id="QOe-1K-UYQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jZ4-38-xLY" secondAttribute="trailing" id="Qwk-MT-XQD"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="UNc-Tg-qVe" secondAttribute="bottom" constant="140" id="R3O-My-7su"/>
-                            <constraint firstItem="3eV-Ve-ReW" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leadingMargin" constant="16" id="Zut-Jd-Uwj"/>
+                            <constraint firstItem="3eV-Ve-ReW" firstAttribute="leading" secondItem="IeE-Lu-e6i" secondAttribute="leadingMargin" id="Zut-Jd-Uwj"/>
                             <constraint firstItem="vW3-yy-N39" firstAttribute="top" secondItem="hbQ-5h-T5r" secondAttribute="bottom" constant="80" id="cKt-KI-idU"/>
                             <constraint firstItem="UNc-Tg-qVe" firstAttribute="centerX" secondItem="IeE-Lu-e6i" secondAttribute="centerX" id="wBS-FZ-1Lo"/>
                             <constraint firstItem="i7f-KO-Ztf" firstAttribute="centerX" secondItem="IeE-Lu-e6i" secondAttribute="centerX" id="xUT-E8-qmx"/>
@@ -294,6 +307,7 @@
                         <outlet property="placeholderView" destination="8Au-Qu-l05" id="nVa-39-GFC"/>
                         <outlet property="saveImageButton" destination="i7f-KO-Ztf" id="c8j-NK-WLp"/>
                         <outlet property="scrollViewBottomConstraint" destination="cKt-KI-idU" id="oFh-Ce-95x"/>
+                        <outlet property="shareButton" destination="jZ4-38-xLY" id="ga4-EG-Yt1"/>
                         <outlet property="stickersButton" destination="3Df-cP-CXT" id="Wgk-Us-nnY"/>
                         <outlet property="topConstraint" destination="QLb-9C-khX" id="9hD-M8-JcS"/>
                         <outlet property="trashBin" destination="UNc-Tg-qVe" id="OEV-Y1-Y2N"/>
@@ -377,6 +391,7 @@
         <image name="Download" width="170" height="170"/>
         <image name="Flip Camera" width="170" height="170"/>
         <image name="Logo-Red" width="369" height="93"/>
+        <image name="Share-Red" width="170" height="170"/>
         <image name="Stickers" width="170" height="170"/>
         <image name="Trash" width="170" height="170"/>
     </resources>
