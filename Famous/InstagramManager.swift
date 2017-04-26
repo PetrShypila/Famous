@@ -12,12 +12,12 @@ import Foundation
 class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
     
     private let kInstagramURL = "instagram://app"
-    private let kUTI = "com.instagram.exclusivegram"
-    private let kfileNameExtension = "instagram.jpg"
+    private let kUTI = "com.instagram.photo"
+    private let kfileNameExtension = "instagram.ig"
     private let kAlertViewTitle = "Error"
     private let kAlertViewMessage = "Please install the Instagram application"
     
-    var documentInteractionController = UIDocumentInteractionController()
+    private let documentInteractionController = UIDocumentInteractionController()
     
     // singleton manager
     class var sharedManager: InstagramManager {
@@ -56,5 +56,6 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
             
         }
     }
+    
     
 }
