@@ -72,8 +72,9 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
     }
     
     private func buildPhoto() -> UIImage {
-        
-        sendSavedStickers(stickers: placeholderView.subviews)
+        self.sessionQueue.async {
+            self.sendSavedStickers(stickers: self.placeholderView.subviews)
+        }
         
         //Create the UIImage
         let zoomVal = self.photoScrollView.zoomScale
@@ -87,6 +88,7 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         self.watermarkWrapper.isHidden = true
         UIGraphicsEndImageContext()
         self.photoScrollView.zoomScale = zoomVal
+        self.photoScrollView.layoutIfNeeded()
         
         return image
     }
@@ -130,6 +132,8 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         
         self.trashBinBottomConstraint.constant = self.scrollViewBottomConstraint.constant + self.bottomConstraint.constant + 10
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let stickerViewController = segue.destination as? StickerPickerViewController {

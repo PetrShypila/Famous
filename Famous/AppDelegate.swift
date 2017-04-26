@@ -23,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
+            return false
         }
+        
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
         gai.logger.logLevel = GAILogLevel.verbose  // remove before app release
         

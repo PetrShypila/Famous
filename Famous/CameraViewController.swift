@@ -26,6 +26,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
     private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera], mediaType: AVMediaTypeVideo, position: .unspecified)!
     private var photo: UIImage?
+    private var timer: Timer?
     private var isSessionRunning = false
     private var volumeHandler: JPSVolumeButtonHandler?
     private var sessionRunningObserveContext = 0
@@ -245,6 +246,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("EsIst viewDidLoad")
         
         updateImageToLastPhoto(self.cameraRollButton)
         
@@ -253,12 +255,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         // Disable UI. The UI is enabled if and only if the session starts running.
         self.photoButton.isEnabled = false
         
-        self.flipButton.layoutIfNeeded()
         self.flipButton.clipsToBounds = true
         self.flipButton.layer.cornerRadius = self.flipButton.bounds.size.width / 10.0
         self.flipButton.isUserInteractionEnabled = false
         
-        self.cameraRollButton.layoutIfNeeded()
         self.cameraRollButton.clipsToBounds = true
         self.cameraRollButton.layer.cornerRadius = self.cameraRollButton.bounds.size.width / 10.0
         self.cameraRollButton.isUserInteractionEnabled = false
@@ -318,6 +318,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        
+        print("EsIst viewWillAppear")
+        
         sessionQueue.async {
             switch self.setupResult {
             case .success:
@@ -351,6 +355,14 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let timer = self.timer {
+            timer.invalidate()
+            self.timer = nil
+        }
+        
+        print("EsIst viewWillDisappear")
         
         sessionQueue.async { [unowned self] in
             if self.setupResult == .success {
@@ -359,12 +371,13 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.removeObservers()
             }
         }
-        
-        super.viewWillDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        print("EsIst viewDidAppear")
+        
         // Adjusting scale for photos preview
         (self.cameraRollButton.subviews[0] as! UIImageView).contentMode = .scaleAspectFill
     }
@@ -392,6 +405,12 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
+    }
+    
+    
+    
+    func update() {
+        updateImageToLastPhoto(self.cameraRollButton)
     }
     
     private func focus(with focusMode: AVCaptureFocusMode, exposureMode: AVCaptureExposureMode, at devicePoint: CGPoint, monitorSubjectAreaChange: Bool) {
