@@ -24,7 +24,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private let session = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
     private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
-    private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera], mediaType: AVMediaTypeVideo, position: .unspecified)!
+    private let videoDeviceDiscoverySession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaTypeVideo, position: .unspecified)!
     private var photo: UIImage?
     private var timer: Timer?
     private var isSessionRunning = false
@@ -144,7 +144,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             switch currentPosition {
             case .unspecified, .front:
                 preferredPosition = .back
-                preferredDeviceType = .builtInDualCamera
+                preferredDeviceType = .builtInDuoCamera
                 
             case .back:
                 preferredPosition = .front
@@ -246,7 +246,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("EsIst viewDidLoad")
         
         updateImageToLastPhoto(self.cameraRollButton)
         
@@ -320,8 +319,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         
-        print("EsIst viewWillAppear")
-        
         sessionQueue.async {
             switch self.setupResult {
             case .success:
@@ -362,8 +359,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             self.timer = nil
         }
         
-        print("EsIst viewWillDisappear")
-        
         sessionQueue.async { [unowned self] in
             if self.setupResult == .success {
                 self.session.stopRunning()
@@ -375,8 +370,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        print("EsIst viewDidAppear")
         
         // Adjusting scale for photos preview
         (self.cameraRollButton.subviews[0] as! UIImageView).contentMode = .scaleAspectFill
@@ -675,7 +668,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             var defaultVideoDevice: AVCaptureDevice?
             
             // Choose the back dual camera if available, otherwise default to a wide angle camera.
-            if let dualCameraDevice = AVCaptureDevice.defaultDevice(withDeviceType: .builtInDualCamera, mediaType: AVMediaTypeVideo, position: .back) {
+            if let dualCameraDevice = AVCaptureDevice.defaultDevice(withDeviceType: .builtInDuoCamera, mediaType: AVMediaTypeVideo, position: .back) {
                 defaultVideoDevice = dualCameraDevice
             }
             else if let backCameraDevice = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .back) {
