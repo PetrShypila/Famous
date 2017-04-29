@@ -87,8 +87,11 @@ class EditImageViewController: UIViewController, UIScrollViewDelegate, UIGesture
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         self.watermarkWrapper.isHidden = true
         UIGraphicsEndImageContext()
-        self.photoScrollView.zoomScale = zoomVal
-        self.photoScrollView.layoutIfNeeded()
+        
+        while self.photoScrollView.zoomScale != zoomVal {
+            self.photoScrollView.zoomScale = zoomVal
+            self.photoScrollView.layoutIfNeeded()
+        }
         
         return image
     }

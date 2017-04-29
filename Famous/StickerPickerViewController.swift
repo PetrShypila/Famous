@@ -11,6 +11,7 @@ import Darwin
 class StickerPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let ROW_HEIGHT = CGFloat(100.0)
     private let STICKERS_BUNDLE = "stickers.bundle"
+    private let STICKERS_MINI_BUNDLE = "stickers-mini.bundle"
     private let STICKERS_PER_ROW = 2
     private let cellSpacingHeight = CGFloat(20)
     private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil)
@@ -53,7 +54,7 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.stickerViews = loadStickersImages(from: STICKERS_BUNDLE)
+        self.stickerViews = loadStickersImages(from: STICKERS_MINI_BUNDLE)
         self.stickersTableView.backgroundColor = UIColor.clear
         
         let background = imageForScreen(self.backgroundImage)
