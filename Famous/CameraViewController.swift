@@ -60,6 +60,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     @IBAction private func capturePhoto() {
+        //Don't capture if no camera presented
+        if self.videoDeviceDiscoverySession.devices.count == 0 {
+            return
+        }
         
         self.sendEventAnalytics(event: "capture-photo", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
         
@@ -127,6 +131,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     @IBAction private func changeCamera(_ cameraButton: UIButton) {
+        //Don't capture if no camera presented
+        if self.videoDeviceDiscoverySession.devices.count == 0 {
+            return
+        }
         
         self.sendEventAnalytics(event: "flip-camera", type: GAIActions.PRESS_BUTTON, sessionQueue: self.sessionQueue)
         
@@ -251,6 +259,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         
         self.volumeHandler = JPSVolumeButtonHandler(up: {self.capturePhoto()}, downBlock: {self.capturePhoto()})
         
+        self.cameraRollButton.clipsToBounds = true
+        self.cameraRollButton.layer.cornerRadius = self.cameraRollButton.bounds.size.width / 10.0
+        self.cameraRollButton.isUserInteractionEnabled = false
+        
         // Disable UI. The UI is enabled if and only if the session starts running.
         self.photoButton.isEnabled = false
         
@@ -258,59 +270,61 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         self.flipButton.layer.cornerRadius = self.flipButton.bounds.size.width / 10.0
         self.flipButton.isUserInteractionEnabled = false
         
-        self.cameraRollButton.clipsToBounds = true
-        self.cameraRollButton.layer.cornerRadius = self.cameraRollButton.bounds.size.width / 10.0
-        self.cameraRollButton.isUserInteractionEnabled = false
-        
         addShadow(to: [self.cameraRollButton, self.photoButton])
         
-        // Set up the video preview view.
-        self.previewView.session = session
-        
-        /*
-         Check video authorization status. Video access is required and audio
-         access is optional. If audio access is denied, audio is not recorded
-         during movie recording.
-         */
-        switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
-        case .authorized:
-            // The user has previously granted access to the camera.
-            break
+        if videoDeviceDiscoverySession.devices.count > 0 {
             
-        case .notDetermined:
+            // Set up the video preview view.
+            self.previewView.session = session
+            
             /*
-             The user has not yet been presented with the option to grant
-             video access. We suspend the session queue to delay session
-             setup until the access request has completed.
-             
-             Note that audio access will be implicitly requested when we
-             create an AVCaptureDeviceInput for audio during session setup.
+             Check video authorization status. Video access is required and audio
+             access is optional. If audio access is denied, audio is not recorded
+             during movie recording.
              */
-            sessionQueue.suspend()
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { [unowned self] granted in
-                if !granted {
-                    self.setupResult = .notAuthorized
-                }
-                self.sessionQueue.resume()
-            })
+            switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
+            case .authorized:
+                // The user has previously granted access to the camera.
+                break
+                
+            case .notDetermined:
+                /*
+                 The user has not yet been presented with the option to grant
+                 video access. We suspend the session queue to delay session
+                 setup until the access request has completed.
+                 
+                 Note that audio access will be implicitly requested when we
+                 create an AVCaptureDeviceInput for audio during session setup.
+                 */
+                sessionQueue.suspend()
+                AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { [unowned self] granted in
+                    if !granted {
+                        self.setupResult = .notAuthorized
+                    }
+                    self.sessionQueue.resume()
+                })
+                
+            default:
+                // The user has previously denied access.
+                setupResult = .notAuthorized
+            }
             
-        default:
-            // The user has previously denied access.
-            setupResult = .notAuthorized
-        }
-        
-        /*
-         Setup the capture session.
-         In general it is not safe to mutate an AVCaptureSession or any of its
-         inputs, outputs, or connections from multiple threads at the same time.
-         
-         Why not do all of this on the main queue?
-         Because AVCaptureSession.startRunning() is a blocking call which can
-         take a long time. We dispatch session setup to the sessionQueue so
-         that the main queue isn't blocked, which keeps the UI responsive.
-         */
-        sessionQueue.async { [unowned self] in
-            self.configureSession()
+            /*
+             Setup the capture session.
+             In general it is not safe to mutate an AVCaptureSession or any of its
+             inputs, outputs, or connections from multiple threads at the same time.
+             
+             Why not do all of this on the main queue?
+             Because AVCaptureSession.startRunning() is a blocking call which can
+             take a long time. We dispatch session setup to the sessionQueue so
+             that the main queue isn't blocked, which keeps the UI responsive.
+             */
+            sessionQueue.async { [unowned self] in
+                self.configureSession()
+            }
+        } else {
+            
+            self.cameraRollButton.isUserInteractionEnabled = true
         }
     }
     
@@ -319,33 +333,36 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         
-        sessionQueue.async {
-            switch self.setupResult {
-            case .success:
-                // Only setup observers and start the session running if setup succeeded.
-                self.addObservers()
-                self.session.startRunning()
-                self.isSessionRunning = self.session.isRunning
-                
-            case .notAuthorized:
-                DispatchQueue.main.async { [unowned self] in
-                    let message = NSLocalizedString("AVCam doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
-                    let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
-                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
-                    }))
+        if videoDeviceDiscoverySession.devices.count > 0 {
+            
+            sessionQueue.async {
+                switch self.setupResult {
+                case .success:
+                    // Only setup observers and start the session running if setup succeeded.
+                    self.addObservers()
+                    self.session.startRunning()
+                    self.isSessionRunning = self.session.isRunning
                     
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                
-            case .configurationFailed:
-                DispatchQueue.main.async { [unowned self] in
-                    let message = NSLocalizedString("Unable to capture media", comment: "Alert message when something goes wrong during capture session configuration")
-                    let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+                case .notAuthorized:
+                    DispatchQueue.main.async { [unowned self] in
+                        let message = NSLocalizedString("AVCam doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
+                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
+                            UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                        }))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                     
-                    self.present(alertController, animated: true, completion: nil)
+                case .configurationFailed:
+                    DispatchQueue.main.async { [unowned self] in
+                        let message = NSLocalizedString("Unable to capture media", comment: "Alert message when something goes wrong during capture session configuration")
+                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -393,39 +410,41 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         return .all
     }
     
-    
-    
     func update() {
         updateImageToLastPhoto(self.cameraRollButton)
     }
     
     private func focus(with focusMode: AVCaptureFocusMode, exposureMode: AVCaptureExposureMode, at devicePoint: CGPoint, monitorSubjectAreaChange: Bool) {
-        sessionQueue.async { [unowned self] in
-            if let device = self.videoDeviceInput.device {
-                do {
-                    try device.lockForConfiguration()
-                    
-                    /*
-                     Setting (focus/exposure)PointOfInterest alone does not initiate a (focus/exposure) operation.
-                     Call set(Focus/Exposure)Mode() to apply the new point of interest.
-                     */
-                    if device.isFocusPointOfInterestSupported && device.isFocusModeSupported(focusMode) {
-                        device.focusPointOfInterest = devicePoint
-                        device.focusMode = focusMode
+        if videoDeviceDiscoverySession.devices.count > 0 {
+            
+            sessionQueue.async { [unowned self] in
+                if let device = self.videoDeviceInput.device {
+                    do {
+                        try device.lockForConfiguration()
+                        
+                        /*
+                         Setting (focus/exposure)PointOfInterest alone does not initiate a (focus/exposure) operation.
+                         Call set(Focus/Exposure)Mode() to apply the new point of interest.
+                         */
+                        if device.isFocusPointOfInterestSupported && device.isFocusModeSupported(focusMode) {
+                            device.focusPointOfInterest = devicePoint
+                            device.focusMode = focusMode
+                        }
+                        
+                        if device.isExposurePointOfInterestSupported && device.isExposureModeSupported(exposureMode) {
+                            device.exposurePointOfInterest = devicePoint
+                            device.exposureMode = exposureMode
+                        }
+                        
+                        device.isSubjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange
+                        device.unlockForConfiguration()
                     }
-                    
-                    if device.isExposurePointOfInterestSupported && device.isExposureModeSupported(exposureMode) {
-                        device.exposurePointOfInterest = devicePoint
-                        device.exposureMode = exposureMode
+                    catch {
+                        print("Could not lock device for configuration: \(error)")
                     }
-                    
-                    device.isSubjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange
-                    device.unlockForConfiguration()
-                }
-                catch {
-                    print("Could not lock device for configuration: \(error)")
                 }
             }
+            
         }
     }
     
@@ -521,7 +540,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self)
         
-        session.removeObserver(self, forKeyPath: "running", context: &sessionRunningObserveContext)
+        if self.videoDeviceDiscoverySession.devices.count > 0 {
+            session.removeObserver(self, forKeyPath: "running", context: &sessionRunningObserveContext)
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

@@ -88,6 +88,7 @@ extension UIViewController {
             imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1) as PHAsset, targetSize: view.frame.size, contentMode: .aspectFill, options: requestOptions, resultHandler: { (img, _) in
                 
                 if img != nil {
+                    rollButton.subviews.forEach { $0.removeFromSuperview() }
                     
                     let imageView = UIImageView(image: img)
                     imageView.contentMode = .scaleAspectFill
