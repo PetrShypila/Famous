@@ -29,6 +29,19 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         performSegueToReturnBack()
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.stickerViews = loadStickersImages(from: STICKERS_MINI_BUNDLE)
+        self.stickersTableView.backgroundColor = UIColor.clear
+        
+        let background = imageForScreen(self.backgroundImage)
+        self.view.backgroundColor = UIColor(patternImage: background)
+        
+        addBlur(to: [self.view])
+        addShadow(to: [self.backButton])
+    }
     
     private func loadStickersImages(from boundle: String) -> [UIImage] {
         var stickers = [UIImage]()
@@ -50,25 +63,6 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         return stickers
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.stickerViews = loadStickersImages(from: STICKERS_MINI_BUNDLE)
-        self.stickersTableView.backgroundColor = UIColor.clear
-        
-        let background = imageForScreen(self.backgroundImage)
-        self.view.backgroundColor = UIColor(patternImage: background)
-        
-        addBlur(to: [self.view])
-        addShadow(to: [self.backButton])
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -127,14 +121,26 @@ class StickerPickerViewController: UIViewController, UITableViewDataSource, UITa
     func sendImageBackTo(_ sender: UITapGestureRecognizer) {
         
         if let targetView = sender.view as? UIImageView {
-            if let sticker = targetView.image {
+            if let thumbnail = targetView.image {
                 
-                self.sendEventAnalytics(event: sticker.accessibilityIdentifier!, type: GAIActions.ADD_STICKER, sessionQueue: self.sessionQueue)
+                let stickerName = thumbnail.accessibilityIdentifier
+                let sticker = load(image: stickerName!, from: STICKERS_BUNDLE)
                 
-                delegate.addStciker(sticker, size: targetView.frame.size, to: delegate.placeholderView)
+                self.sendEventAnalytics(event: stickerName!, type: GAIActions.ADD_STICKER, sessionQueue: self.sessionQueue)
+                
+                delegate.addStciker(sticker ?? thumbnail, size: targetView.frame.size, to: delegate.placeholderView)
                 performSegueToReturnBack()
             }
         }
+    }
+    
+    private func load(image:String, from bundle: String) -> UIImage? {
+        
+        if let sticker = UIImage(named: "\(bundle)/\(image)") {
+            return sticker
+        }
+        
+        return nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
